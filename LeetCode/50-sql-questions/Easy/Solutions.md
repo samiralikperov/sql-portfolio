@@ -1,7 +1,5 @@
 <details>
   <summary> 1757. Recyclable and Low Fat Products</summary> 
-  
-[Link](https://leetcode.com/problems/recyclable-and-low-fat-products/?envType=study-plan-v2&envId=top-sql-50)
 
 > **Table: Products**  
 >   
