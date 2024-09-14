@@ -7,3 +7,4 @@ This repository showcases my SQL projects and solved problems. Here, you'll find
 
 This repository is distributed under the MIT License. For more information, please refer to the [LICENSE](LICENSE) file.
 
+_Last updated on: {{ site.time | date: "%Y-%m-%d" }}_
