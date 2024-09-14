@@ -5,6 +5,16 @@ This repository showcases my SQL projects and solved problems. Here, you'll find
 
 ## License
 
-This repository is distributed under the MIT License. For more information, please refer to the [LICENSE](LICENSE) file.
+This repository is distributed under the MIT License. For more information, please refer to the [LICENSE](LICENSE) file.  
 
-_Last updated on: {{ site.time | date: "%Y-%m-%d" }}_
+
+
+
+
+
+
+
+
+![Last Commit](https://img.shields.io/github/last-commit/samiralikperov/sql-portfolio?color=black&label=Last%20Commit&style=for-the-badge)
+
+
