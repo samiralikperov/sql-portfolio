@@ -134,4 +134,138 @@
 
 </details>
 
+<details>
+  <summary> 1148. Article Views I</summary> 
+
+> **Table: Views**  
+>   
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | article_id  | int     |  
+> | author_id   | int     |  
+> | viewer_id   | int     |  
+> | view_date   | date    |  
+>   
+> - There is no primary key (column with unique values) for this table; the table may have duplicate rows.  
+> - Each row of this table indicates that some viewer viewed an article (written by some author) on some date.  
+> - Note that equal `author_id` and `viewer_id` indicate the same person.  
+>   
+> **Problem Statement:**  
+> Write a solution to find all the authors that viewed at least one of their own articles.  
+> Return the result table sorted by `id` in ascending order.  
+> The result format is in the following example.  
+
+> **Solution:**
+
+> ```sql  
+> SELECT DISTINCT author_id AS id  
+> FROM Views  
+> WHERE author_id = viewer_id  -- Filters rows where the author viewed their own article  
+> ORDER BY author_id;  -- Orders the result by id in ascending order  
+> ```  
+>   
+> **Output:**  
+>   
+> | id |  
+> |----|  
+> | 4  |  
+> | 7  |  
+>   
+> **Explanation:**  
+> - The query selects distinct `author_id` from the `Views` table where the `author_id` is the same as `viewer_id`.  
+> - This condition checks if an author has viewed their own article.  
+> - The result is sorted in ascending order by `id`.
+
+</details>
+
+<details>
+  <summary> 1683. Invalid Tweets</summary> 
+
+> **Table: Tweets**  
+>   
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | tweet_id    | int     |  
+> | content     | varchar |  
+>   
+> - `tweet_id` is the primary key (column with unique values) for this table.  
+> - This table contains all the tweets in a social media app.  
+>   
+> **Problem Statement:**  
+> Write a solution to find the IDs of the invalid tweets. A tweet is considered invalid if the number of characters used in the content of the tweet is strictly greater than 15.  
+> Return the result table in any order.  
+> The result format is in the following example.  
+
+> **Solution:**
+
+> ```sql  
+> SELECT tweet_id  
+> FROM Tweets  
+> WHERE LENGTH(content) > 15;  -- Filters tweets where the content length is greater than 15 characters  
+> ```  
+>   
+> **Output:**  
+>   
+> | tweet_id |  
+> |----------|  
+> | 2        |  
+>   
+> **Explanation:**  
+> - The query selects `tweet_id` from the `Tweets` table where the length of `content` is greater than 15 characters.  
+> - This ensures that only the IDs of invalid tweets are returned.
+
+</details>
+
+
+<details>
+  <summary> 1378. Replace Employee ID With The Unique Identifier</summary> 
+
+> **Table: Employees**  
+>   
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | id          | int     |  
+> | name        | varchar |  
+>   
+> - `id` is the primary key (column with unique values) for this table.  
+> - Each row of this table contains the `id` and the `name` of an employee in a company.  
+>   
+> **Table: EmployeeUNI**  
+>   
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | id          | int     |  
+> | unique_id   | int     |  
+>   
+> - `(id, unique_id)` is the primary key (combination of columns with unique values) for this table.  
+> - Each row of this table contains the `id` and the corresponding `unique_id` of an employee in the company.  
+>   
+> **Problem Statement:**  
+> Write a solution to show the `unique_id` of each user. If a user does not have a `unique_id`, show `null`.  
+> Return the result table in any order.  
+> The result format is in the following example.  
+
+> **Solution:**
+
+> ```sql  
+> SELECT u.unique_id, e.name  
+> FROM Employees AS e  
+> LEFT JOIN EmployeeUNI AS u ON u.id = e.id;  -- Joins the tables on employee id and retrieves unique_id; null if not found  
+> ```  
+>   
+> **Output:**  
+>   
+> | unique_id | name     |  
+> |-----------|----------|  
+> | null      | Alice    |  
+> | null      | Bob      |  
+> | 2         | Meir     |  
+> | 3         | Winston  |  
+> | 1         | Jonathan |  
+>   
+> **Explanation:**  
+> - The query performs a `LEFT JOIN` between the `Employees` and `EmployeeUNI` tables on the `id` column.  
+> - It selects the `unique_id` and `name` of each employee. If an employee does not have a `unique_id`, the result is `null`.
+
+</details>
 
