@@ -1,4 +1,7 @@
 <details>
+  <summary><strong>SELECT</strong></summary>
+
+<details>
   <summary> 1757. Recyclable and Low Fat Products</summary> 
 
 > **Table: Products**  
@@ -215,7 +218,25 @@
 > - This ensures that only the IDs of invalid tweets are returned.
 
 </details>
+</details>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<details>
+  <summary><strong>BASIC JOINS</strong></summary>
 
 <details>
   <summary> 1378. Replace Employee ID With The Unique Identifier</summary> 
@@ -268,6 +289,158 @@
 > - It selects the `unique_id` and `name` of each employee. If an employee does not have a `unique_id`, the result is `null`.
 
 </details>
+
+<details>
+  <summary>1068. Product Sales Analysis I</summary>  
+
+> **Table: Sales**  
+>  
+> | Column Name | Type  |  
+> |-------------|-------|  
+> | sale_id     | int   |  
+> | product_id  | int   |  
+> | year        | int   |  
+> | quantity    | int   |  
+> | price       | int   |  
+>  
+> (sale_id, year) is the primary key (combination of columns with unique values) of this table.  
+> product_id is a foreign key (reference column) to Product table.  
+> Each row of this table shows a sale on the product product_id in a certain year.  
+> Note that the price is per unit.  
+>  
+> **Table: Product**  
+>  
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | product_id   | int     |  
+> | product_name | varchar |  
+>  
+> product_id is the primary key (column with unique values) of this table.  
+> Each row of this table indicates the product name of each product.  
+>  
+> **Problem Statement:**  
+> Write a solution to report the product_name, year, and price for each sale_id in the Sales table.  
+> Return the resulting table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT p.product_name, s.year, s.price  
+> FROM sales as s  
+> LEFT JOIN product as p ON p.product_id = s.product_id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | product_name | year | price |  
+> | ------------ | ---- | ----- |  
+> | Nokia        | 2008 | 5000  |  
+> | Nokia        | 2009 | 5000  |  
+> | Apple        | 2011 | 9000  |  
+>  
+> **Explanation:**  
+> - The query retrieves the product name, the year of the sale, and the price for each sale from the Sales table.  
+> - A LEFT JOIN is used to join the Product table with the Sales table on product_id.  
+> - The result includes all records from Sales and matches the corresponding product name from Product.
+> 
+</details>
+
+<details>
+  <summary>1581. Customer Who Visited but Did Not Make Any Transactions</summary>  
+
+> **Table: Visits**  
+>  
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | visit_id    | int     |  
+> | customer_id | int     |  
+>  
+> visit_id is the column with unique values for this table.  
+> This table contains information about the customers who visited the mall.  
+>  
+> **Table: Transactions**  
+>  
+> | Column Name    | Type    |  
+> |----------------|---------|  
+> | transaction_id | int     |  
+> | visit_id       | int     |  
+> | amount         | int     |  
+>  
+> transaction_id is the column with unique values for this table.  
+> This table contains information about the transactions made during the visit_id.  
+>  
+> **Problem Statement:**  
+> Write a solution to find the IDs of the users who visited without making any transactions and the number of times they made these types of visits.  
+> Return the result table sorted in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT v.customer_id, COUNT(v.visit_id) as count_no_trans  
+> FROM visits as v  
+> LEFT JOIN transactions as t ON v.visit_id = t.visit_id  
+> WHERE t.visit_id IS NULL  
+> GROUP BY v.customer_id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | customer_id | count_no_trans |  
+> | ----------- | -------------- |  
+> | 30          | 1              |  
+> | 54          | 2              |  
+> | 96          | 1              |  
+>  
+> **Explanation:**  
+> - The query joins the `Visits` table with the `Transactions` table using a LEFT JOIN to keep all visits, even if no transaction was made.  
+> - The `WHERE t.visit_id IS NULL` clause filters out any visits that had a transaction.  
+> - The result is grouped by customer_id, and the COUNT function calculates how many visits did not result in a transaction.  
+> 
+</details>
+
+
+<details>
+  <summary>197. Rising Temperature</summary>  
+
+> **Table: Weather**  
+>  
+> | Column Name   | Type    |  
+> |---------------|---------|  
+> | id            | int     |  
+> | recordDate    | date    |  
+> | temperature   | int     |  
+>  
+> id is the column with unique values for this table.  
+> There are no different rows with the same recordDate.  
+> This table contains information about the temperature on a certain day.  
+>  
+> **Problem Statement:**  
+> Write a solution to find all dates' `id` with higher temperatures compared to the previous day.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT w1.id  
+> FROM weather as w1  
+> JOIN weather as w2 ON w1.recordDate = DATEADD(DAY, 1, w2.recordDate)  
+> WHERE w1.temperature > w2.temperature;  
+> ```  
+>  
+> **Output:**  
+>  
+> | id |  
+> |----|  
+> | 2  |  
+> | 4  |  
+>  
+> **Explanation:**  
+> - The query joins the `Weather` table with itself to compare the temperature on each day with the temperature of the previous day.  
+> - The `DATEADD(DAY, 1, w2.recordDate)` condition ensures that we are comparing consecutive days.  
+> - The `WHERE w1.temperature > w2.temperature` filters out the rows where the temperature of the current day is lower or equal to the previous day, and only selects those where the temperature increased.
+>  
+</details>
+
 
 <details>
   <summary>1661. Average Time of Process per Machine</summary> 
@@ -384,7 +557,7 @@
 
 
 <details>
-  <summary>280. Students and Examinations</summary>
+  <summary>1280. Students and Examinations</summary>
 
 > **Table: Students**  
 > 
@@ -462,4 +635,130 @@
 > GROUP BY and ORDER BY: Finally, we group the results by student_id and subject_name to aggregate the exam attendances, and order the output by these columns for a clear and organized result.  
 
 </details>
+
+
+<details>
+  <summary>570. Managers with at Least 5 Direct Reports</summary>  
+
+> **Table: Employee**  
+>  
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | id          | int     |  
+> | name        | varchar |  
+> | department  | varchar |  
+> | managerId   | int     |  
+>  
+> id is the primary key (column with unique values) for this table.  
+> Each row of this table indicates the name of an employee, their department, and the id of their manager.  
+> If managerId is null, then the employee does not have a manager.  
+> No employee will be the manager of themself.  
+>  
+> **Problem Statement:**  
+> Write a solution to find managers with at least five direct reports.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT m.name  
+> FROM Employee as m  
+> LEFT JOIN Employee as e   
+>     ON m.id = e.managerId  
+> GROUP BY e.managerId  
+> HAVING COUNT(e.managerId) >= 5;  
+> ```  
+>  
+> **Output:**  
+>  
+> | name |  
+> |------|  
+> | John |  
+>  
+> **Explanation:**  
+> - The query joins the `Employee` table with itself to count how many employees each manager (identified by `managerId`) directly supervises.  
+> - We group the results by `e.managerId` and use the `HAVING` clause to filter only those managers who have 5 or more direct reports.  
+> - The `LEFT JOIN` ensures that managers with no employees reporting to them are still considered, though filtered out by the `HAVING` clause.  
+>  
+</details>
+
+
+<details>
+  <summary>1934. Confirmation Rate</summary>  
+
+> **Table: Signups**  
+>  
+> | Column Name | Type     |  
+> |-------------|----------|  
+> | user_id     | int      |  
+> | time_stamp  | datetime |  
+>  
+> user_id is the column of unique values for this table.  
+> Each row contains information about the signup time for the user with ID user_id.  
+>  
+> **Table: Confirmations**  
+>  
+> | Column Name | Type     |  
+> |-------------|----------|  
+> | user_id     | int      |  
+> | time_stamp  | datetime |  
+> | action      | ENUM     |  
+>  
+> (user_id, time_stamp) is the primary key (combination of columns with unique values) for this table.  
+> user_id is a foreign key (reference column) to the Signups table.  
+> action is an ENUM (category) of the type ('confirmed', 'timeout').  
+> Each row of this table indicates that the user with ID user_id requested a confirmation message at time_stamp and that confirmation message was either confirmed ('confirmed') or expired without confirming ('timeout').  
+>  
+> **Problem Statement:**  
+> The confirmation rate of a user is the number of 'confirmed' messages divided by the total number of requested confirmation messages. The confirmation rate of a user that did not request any confirmation messages is 0.  
+> Round the confirmation rate to two decimal places.  
+> Write a solution to find the confirmation rate of each user.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT s.user_id  
+>       ,ROUND(SUM(CASE WHEN c.action = 'confirmed' THEN 1 ELSE 0 END)/COUNT(*), 2) as confirmation_rate  
+> FROM Signups as s  
+> LEFT JOIN Confirmations as c  
+>     ON s.user_id = c.user_id  
+> GROUP BY s.user_id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | user_id | confirmation_rate |  
+> |---------|-------------------|  
+> | 3       | 0                 |  
+> | 7       | 1                 |  
+> | 2       | 0.5               |  
+> | 6       | 0                 |  
+>  
+> **Explanation:**  
+> - The query joins the `Signups` table with the `Confirmations` table to count how many confirmation requests each user made and how many were successfully confirmed.  
+> - For each user, we calculate the confirmation rate by dividing the number of 'confirmed' messages by the total number of confirmation messages.  
+> - The `LEFT JOIN` ensures that users who did not request any confirmation messages still appear with a confirmation rate of 0.
+>  
+</details>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
