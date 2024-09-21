@@ -17,9 +17,9 @@
 > Write a solution to find the IDs of products that are both low fat and recyclable.  
 > Return the result table in any order.  
 > The result format is in the following example.  
-
+> 
 > **Solution:**
-
+> 
 > ```sql  
 > SELECT  
 >     product_id  
@@ -61,9 +61,9 @@
 > Find the names of the customers that are not referred by the customer with `id = 2`.  
 > Return the result table in any order.  
 > The result format is in the following example.  
-
+> 
 > **Solution:**
-
+> 
 > ```sql  
 > SELECT name  
 > FROM Customer  
@@ -111,9 +111,9 @@
 > Write a solution to find the `name`, `population`, and `area` of the big countries.  
 > Return the result table in any order.  
 > The result format is in the following example.  
-
+> 
 > **Solution:**
-
+> 
 > ```sql  
 > SELECT name, population, area  
 > FROM World  
@@ -153,10 +153,10 @@
 > **Problem Statement:**  
 > Write a solution to find all the authors that viewed at least one of their own articles.  
 > Return the result table sorted by `id` in ascending order.  
-> The result format is in the following example.  
-
+> The result format is in the following example.
+> 
 > **Solution:**
-
+> 
 > ```sql  
 > SELECT DISTINCT author_id AS id  
 > FROM Views  
@@ -194,10 +194,10 @@
 > **Problem Statement:**  
 > Write a solution to find the IDs of the invalid tweets. A tweet is considered invalid if the number of characters used in the content of the tweet is strictly greater than 15.  
 > Return the result table in any order.  
-> The result format is in the following example.  
-
+> The result format is in the following example.
+> 
 > **Solution:**
-
+> 
 > ```sql  
 > SELECT tweet_id  
 > FROM Tweets  
@@ -243,10 +243,10 @@
 > **Problem Statement:**  
 > Write a solution to show the `unique_id` of each user. If a user does not have a `unique_id`, show `null`.  
 > Return the result table in any order.  
-> The result format is in the following example.  
-
+> The result format is in the following example.
+> 
 > **Solution:**
-
+> 
 > ```sql  
 > SELECT u.unique_id, e.name  
 > FROM Employees AS e  
@@ -269,3 +269,56 @@
 
 </details>
 
+<details>
+  <summary>1661. Average Time of Process per Machine</summary> 
+
+> **Table: Activity**  
+>   
+> | Column Name    | Type    |  
+> |----------------|---------|  
+> | machine_id     | int     |  
+> | process_id     | int     |  
+> | activity_type  | enum    |  
+> | timestamp      | float   |  
+>   
+> - `machine_id`: The ID of the machine.  
+> - `process_id`: The ID of the process running on the machine.  
+> - `activity_type`: An ENUM of either `'start'` or `'end'`, indicating the beginning and end of a process.  
+> - `timestamp`: A float representing the time in seconds when the activity occurred.  
+> 
+> **Problem Statement:**  
+> Write a solution to find the average time each machine takes to complete a process.  
+> The time for a process is calculated by subtracting the 'start' timestamp from the 'end' timestamp.  
+> The result should include the `machine_id` and the average processing time, rounded to 3 decimal places.
+> 
+> **Solution:**
+> 
+> ```sql
+> SELECT 
+>     a.machine_id, 
+>     ROUND(AVG(b.timestamp - a.timestamp), 3) AS processing_time
+> FROM 
+>     Activity AS a
+> JOIN 
+>     Activity AS b
+> ON 
+>     a.machine_id = b.machine_id
+>     AND a.process_id = b.process_id
+>     AND a.activity_type = 'start'
+>     AND b.activity_type = 'end'
+> GROUP BY 
+>     a.machine_id;
+> ```
+> **Output:**  
+> | machine_id | processing_time |
+> | ---------- | --------------- |
+> | 0          | 0.894           |
+> | 1          | 0.995           |
+> | 2          | 1.456           |
+>
+> **Explanation:**
+>
+> The query joins the Activity table to itself to match the start and end times of each process.
+> It then calculates the time difference between the 'start' and 'end' timestamps for each process.
+> The result is grouped by machine_id, and the average processing time for each machine is returned.
+> The AVG function calculates the average processing time for each machine, and the ROUND function rounds it to 3 decimal places.
