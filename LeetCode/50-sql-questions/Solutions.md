@@ -322,3 +322,64 @@
 > It then calculates the time difference between the 'start' and 'end' timestamps for each process.
 > The result is grouped by machine_id, and the average processing time for each machine is returned.
 > The AVG function calculates the average processing time for each machine, and the ROUND function rounds it to 3 decimal places.
+
+</details>
+
+<details>
+  <summary>577. Employee Bonus</summary> 
+
+> **Table: Employee**  
+>   
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | empId       | int     |  
+> | name        | varchar |  
+> | supervisor  | int     |  
+> | salary      | int     |  
+>   
+> - `empId` is the primary key of the Employee table.  
+> - Each row represents an employee's information, including their `empId`, `name`, `supervisor`, and `salary`.  
+
+> **Table: Bonus**  
+>   
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | empId       | int     |  
+> | bonus       | int     |  
+>   
+> - `empId` is the primary key of the Bonus table and a foreign key to `empId` in the Employee table.  
+> - Each row represents the `empId` of an employee and their respective `bonus`.  
+>   
+> **Problem Statement:**  
+> Write a query to return the `name` and `bonus` of each employee whose bonus is less than 1000 or is missing (null).  
+> Return the result in any order.
+> 
+> **Solution:**
+> 
+> ```sql
+> SELECT 
+>     e.name, 
+>     b.bonus 
+> FROM 
+>     Employee e
+> LEFT JOIN 
+>     Bonus b ON e.empID = b.empID
+> WHERE 
+>     b.bonus < 1000 OR b.bonus IS NULL;
+> ```
+> **Output:**  
+> | name | bonus |
+> | ---- | ----- |
+> | Brad | null  |
+> | John | null  |
+> | Dan  | 500   |
+>
+> **Explanation:**  
+> The query performs a LEFT JOIN between the Employee and Bonus tables to ensure that all employees are included, even if they have no bonus (null).  
+> The WHERE clause filters the employees who either have a bonus less than 1000 or no bonus at all.  
+> The result returns the names of employees along with their respective bonus amounts, or null if they have no bonus.  
+
+
+</details>
+
+
