@@ -383,3 +383,83 @@
 </details>
 
 
+<details>
+  <summary>280. Students and Examinations</summary>
+
+> **Table: Students**  
+> 
+> | Column Name   | Type    |  
+> |---------------|---------|  
+> | student_id    | int     |  
+> | student_name  | varchar |  
+> 
+> - `student_id` is the primary key (column with unique values) for this table.  
+> - Each row of this table contains the ID and the name of one student in the school.  
+> 
+> **Table: Subjects**  
+> 
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | subject_name | varchar |  
+> 
+> - `subject_name` is the primary key (column with unique values) for this table.  
+> - Each row of this table contains the name of one subject in the school.  
+> 
+> **Table: Examinations**  
+> 
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | student_id   | int     |  
+> | subject_name | varchar |  
+> 
+> - There is no primary key (column with unique values) for this table. It may contain duplicates.  
+> - Each student from the `Students` table takes every course from the `Subjects` table.  
+> - Each row of this table indicates that a student with ID `student_id` attended the exam of `subject_name`.  
+> 
+> **Problem Statement:**  
+> Write a solution to find the number of times each student attended each exam.  
+> Return the result table ordered by `student_id` and `subject_name`.  
+> 
+> **Solution:**  
+> 
+> ```sql
+> WITH att AS (
+>     SELECT st.student_id, st.student_name, sb.subject_name
+>     FROM Students AS st
+>     CROSS JOIN Subjects AS sb
+> )
+> SELECT a.student_id, a.student_name, a.subject_name, COUNT(e.subject_name) AS attended_exams
+> FROM att a
+> LEFT JOIN Examinations AS e
+>     ON a.student_id = e.student_id
+>     AND a.subject_name = e.subject_name
+> GROUP BY a.student_id, a.subject_name
+> ORDER BY a.student_id, a.subject_name;
+> ```  
+> 
+> **Output:**  
+> 
+> | student_id | student_name | subject_name | attended_exams |  
+> |------------|--------------|--------------|----------------|  
+> | 1          | Alice        | Math         | 3              |  
+> | 1          | Alice        | Physics      | 2              |  
+> | 1          | Alice        | Programming  | 1              |  
+> | 2          | Bob          | Math         | 1              |  
+> | 2          | Bob          | Physics      | 0              |  
+> | 2          | Bob          | Programming  | 1              |  
+> | 6          | Alex         | Math         | 0              |  
+> | 6          | Alex         | Physics      | 0              |  
+> | 6          | Alex         | Programming  | 0              |  
+> | 13         | John         | Math         | 1              |  
+> | 13         | John         | Physics      | 1              |  
+> | 13         | John         | Programming  | 1              |
+>
+> 
+> **Explanation:**  
+> CROSS JOIN: We perform a CROSS JOIN between the Students and Subjects tables to ensure that each student is paired with every subject, even if they haven't attended any exams for that subject.  
+> LEFT JOIN: We then use a LEFT JOIN to link this full list of student-subject combinations to the Examinations table. This ensures that even if a student has not attended an exam for a subject, the student-subject pair will still appear in the results.  
+> COUNT: We count how many times each student attended the exam for each subject using COUNT(e.subject_name). If a student did not attend an exam for a particular subject, the count will be 0.  
+> GROUP BY and ORDER BY: Finally, we group the results by student_id and subject_name to aggregate the exam attendances, and order the output by these columns for a clear and organized result.  
+
+</details>
+
