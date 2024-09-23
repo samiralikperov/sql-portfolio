@@ -789,11 +789,74 @@
 > - The query selects all movies with an odd-numbered ID using the condition `id % 2 = 1`.  
 > - It filters out movies where the `description` is "boring" and orders the results by `rating` in descending order.
 >  
-
-
-
-
 </details>
+
+
+<details>
+  <summary>1251. Average Selling Price</summary>  
+
+> **Table: Prices**  
+>  
+> | Column Name | Type  |  
+> |-------------|-------|  
+> | product_id  | int   |  
+> | start_date  | date  |  
+> | end_date    | date  |  
+> | price       | int   |  
+>  
+> (product_id, start_date, end_date) is the primary key (combination of columns with unique values) for this table.  
+> Each row of this table indicates the price of the product_id in the period from `start_date` to `end_date`.  
+> For each product_id there will be no two overlapping periods.  
+>  
+> **Table: UnitsSold**  
+>  
+> | Column Name   | Type |  
+> |---------------|------|  
+> | product_id    | int  |  
+> | purchase_date | date |  
+> | units         | int  |  
+>  
+> This table may contain duplicate rows.  
+> Each row of this table indicates the date, units, and product_id of each product sold.  
+>  
+> **Problem Statement:**  
+> Write a solution to find the average selling price for each product. `average_price` should be rounded to 2 decimal places.  
+> If a product does not have any sold units, its average selling price is assumed to be 0.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT p.product_id  
+>      , IFNULL(ROUND(SUM(p.price * u.units)/SUM(u.units),2),0) as average_price  
+> FROM Prices as p  
+> LEFT JOIN UnitsSold as u  
+>     ON p.product_id = u.product_id  
+>     AND u.purchase_date BETWEEN p.start_date AND p.end_date  
+> GROUP BY p.product_id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | product_id | average_price |  
+> |------------|---------------|  
+> | 1          | 6.96          |  
+> | 2          | 16.96         |  
+>  
+> **Explanation:**  
+> - The query calculates the average selling price for each product by multiplying the price by the units sold for the respective date range and dividing by the total number of units sold.  
+> - The `IFNULL` ensures that if no units were sold for a product, the `average_price` is set to 0.  
+> - The query uses `LEFT JOIN` to ensure that even products without any sold units are included in the result.  
+>  
+</details>
+
+
+
+
+
+
+
+
 </details>
 
 
