@@ -959,7 +959,180 @@
 >  
 </details>
 
+<details>
+  <summary>1211. Queries Quality and Percentage</summary>  
 
+> **Table: Queries**  
+>  
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | query_name  | varchar |  
+> | result      | varchar |  
+> | position    | int     |  
+> | rating      | int     |  
+>  
+> This table may have duplicate rows.  
+> This table contains information collected from some queries on a database.  
+> The `position` column has a value from 1 to 500.  
+> The `rating` column has a value from 1 to 5. Query with rating less than 3 is a poor query.  
+>  
+> We define query quality as:  
+> - The average of the ratio between query rating and its position.  
+>  
+> We also define poor query percentage as:  
+> - The percentage of all queries with rating less than 3.  
+>  
+> **Problem Statement:**  
+> Write a solution to find each `query_name`, the `quality` and `poor_query_percentage`.  
+> Both `quality` and `poor_query_percentage` should be rounded to 2 decimal places.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT query_name  
+>      , ROUND(SUM(rating / position) / COUNT(*), 2) as quality  
+>      , ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100 / COUNT(*), 2) as poor_query_percentage  
+> FROM Queries  
+> WHERE query_name IS NOT NULL  
+> GROUP BY query_name;  
+> ```  
+>  
+> **Output:**  
+>  
+> | query_name | quality | poor_query_percentage |  
+> |------------|---------|-----------------------|  
+> | Dog        | 2.50    | 33.33                 |  
+> | Cat        | 0.66    | 33.33                 |  
+>  
+> **Explanation:**  
+> - The query calculates the `quality` by summing the ratio of `rating / position` for each query and dividing by the number of queries.  
+> - The `poor_query_percentage` is the percentage of queries with a `rating` less than 3.  
+> - `ROUND` is used to round the values to two decimal places, and `GROUP BY` ensures that the result is grouped by `query_name`.  
+>  
+</details>
+
+<details>
+  <summary>1193. Monthly Transactions I</summary>  
+
+> **Table: Transactions**  
+>  
+> | Column Name   | Type    |  
+> |---------------|---------|  
+> | id            | int     |  
+> | country       | varchar |  
+> | state         | enum    |  
+> | amount        | int     |  
+> | trans_date    | date    |  
+>  
+> id is the primary key of this table.  
+> The table has information about incoming transactions.  
+> The `state` column is an enum of type ['approved', 'declined'].  
+>  
+> **Problem Statement:**  
+> Write an SQL query to find for each month and country, the number of transactions and their total amount, the number of approved transactions and their total amount.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   DATE_FORMAT(trans_date, '%Y-%m') AS MONTH  
+> , country  
+> , COUNT(*) AS trans_count  
+> , SUM(  
+>     CASE  
+>       WHEN state = 'approved' THEN 1  
+>       ELSE 0  
+>     END  
+>   ) AS approved_count  
+> , SUM(amount) AS trans_total_amount  
+> , SUM(  
+>     CASE  
+>       WHEN state = 'approved' THEN amount  
+>       ELSE 0  
+>     END  
+>   ) AS approved_total_amount  
+> FROM  
+>   Transactions  
+> GROUP BY 1, 2;  
+> ```  
+>  
+> **Output:**  
+>  
+> | MONTH   | country | trans_count | approved_count | trans_total_amount | approved_total_amount |  
+> |---------|---------|-------------|----------------|--------------------|-----------------------|  
+> | 2018-12 | US      | 2           | 1              | 3000               | 1000                  |  
+> | 2019-01 | US      | 1           | 1              | 2000               | 2000                  |  
+> | 2019-01 | DE      | 1           | 1              | 2000               | 2000                  |  
+>  
+> **Explanation:**  
+> - The query groups transactions by month and country using `DATE_FORMAT` to extract the year and month from `trans_date`.  
+> - It counts the total number of transactions (`trans_count`) and approved transactions (`approved_count`) by using `SUM(CASE)` conditions.  
+> - The total transaction amount and approved transaction amount are calculated similarly using the `SUM()` function.  
+>  
+</details>
+
+<details>
+  <summary>1174. Immediate Food Delivery II</summary>  
+
+> **Table: Delivery**  
+>  
+> | Column Name                 | Type    |  
+> |-----------------------------|---------|  
+> | delivery_id                 | int     |  
+> | customer_id                 | int     |  
+> | order_date                  | date    |  
+> | customer_pref_delivery_date | date    |  
+>  
+> delivery_id is the column of unique values for this table.  
+> The table holds information about food deliveries where customers place orders on a certain date and specify a preferred delivery date (either on the order date or later).  
+>  
+> **Problem Statement:**  
+> If the customer's preferred delivery date is the same as the order date, then the order is called immediate; otherwise, it is scheduled.  
+> The first order of a customer is the one with the earliest order date.  
+> Write a solution to find the percentage of immediate orders in the first orders of all customers, rounded to 2 decimal places.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   ROUND(  
+>     SUM(  
+>       CASE  
+>         WHEN order_date = customer_pref_delivery_date THEN 1  
+>         ELSE 0  
+>       END  
+>     ) * 100 / COUNT(customer_id)  
+>   , 2  
+>   ) AS immediate_percentage  
+> FROM  
+>   Delivery  
+> WHERE  
+>   (customer_id, order_date) IN (  
+>     SELECT  
+>       customer_id  
+>     , MIN(order_date) AS first_order  
+>     FROM  
+>       Delivery  
+>     GROUP BY  
+>       customer_id  
+>   );  
+> ```  
+>  
+> **Output:**  
+>  
+> | immediate_percentage |  
+> |----------------------|  
+> | 50                   |  
+>  
+> **Explanation:**  
+> - The query calculates the percentage of immediate orders among the first orders for all customers.  
+> - A subquery identifies the first order for each customer by selecting the minimum `order_date`.  
+> - The main query checks if the `order_date` matches the `customer_pref_delivery_date` to determine if the order is immediate.  
+> - The percentage is then calculated by dividing the number of immediate orders by the total number of first orders and rounding the result to 2 decimal places.  
+>  
+</details>
 
 
 
