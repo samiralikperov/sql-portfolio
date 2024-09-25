@@ -2,7 +2,7 @@
   <summary><strong>SELECT</strong></summary>
 
 <details>
-  <summary> 1768. Recyclable and Low Fat Products</summary> 
+  <summary> 1757. Recyclable and Low Fat Products</summary> 
 
 > **Table: Products**  
 >   
