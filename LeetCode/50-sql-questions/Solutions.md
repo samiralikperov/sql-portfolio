@@ -1134,6 +1134,65 @@
 >  
 </details>
 
+<details>
+  <summary>550. Game Play Analysis IV</summary>  
+
+> **Table: Activity**  
+>  
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | player_id    | int     |  
+> | device_id    | int     |  
+> | event_date   | date    |  
+> | games_played | int     |  
+>  
+> (player_id, event_date) is the primary key (combination of columns with unique values) of this table.  
+> This table shows the activity of players of some games.  
+> Each row is a record of a player who logged in and played a number of games (possibly 0) before logging out on a specific day using some device.  
+>  
+> **Problem Statement:**  
+> Write a solution to report the fraction of players that logged in again on the day after their first login day, rounded to 2 decimal places.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   ROUND(  
+>     COUNT(player_id) / (  
+>       SELECT  
+>         COUNT(DISTINCT player_id)  
+>       FROM  
+>         Activity  
+>     )  
+>   , 2  
+>   ) AS fraction  
+> FROM  
+>   Activity  
+> WHERE  
+>   (player_id, event_date) IN (  
+>     SELECT  
+>       player_id  
+>     , ADDDATE(MIN(event_date), INTERVAL 1 DAY)  
+>     FROM  
+>       Activity  
+>     GROUP BY  
+>       player_id  
+>   );  
+> ```  
+>  
+> **Output:**  
+>  
+> | fraction |  
+> |----------|  
+> | 0.33     |  
+>  
+> **Explanation:**  
+> - The query calculates the fraction of players who logged in again on the day after their first login.  
+> - The subquery in the `WHERE` clause identifies the first login day for each player using `MIN(event_date)` and checks if the player logged in again on the following day.  
+> - The `COUNT` function in the outer query counts the number of players who logged in on two consecutive days, and this is divided by the total number of distinct players in the `Activity` table.  
+> - The result is rounded to 2 decimal places to match the expected output.  
+>  
+</details>
 
 
 </details>
