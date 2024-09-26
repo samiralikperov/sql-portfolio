@@ -1300,6 +1300,72 @@
 </details>
 
 
+<details>
+  <summary>1070. Product Sales Analysis III</summary>  
+
+> **Table: Sales**  
+>  
+> | Column Name | Type  |  
+> |-------------|-------|  
+> | sale_id     | int   |  
+> | product_id  | int   |  
+> | year        | int   |  
+> | quantity    | int   |  
+> | price       | int   |  
+>  
+> (sale_id, year) is the primary key (combination of columns with unique values) of this table.  
+> product_id is a foreign key (reference column) to the Product table.  
+> Each row of this table shows a sale on the product product_id in a certain year.  
+> Note that the price is per unit.  
+>  
+> **Table: Product**  
+>  
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | product_id   | int     |  
+> | product_name | varchar |  
+>  
+> product_id is the primary key (column with unique values) of this table.  
+> Each row of this table indicates the product name of each product.  
+>  
+> **Problem Statement:**  
+> Write a solution to select the product_id, year, quantity, and price for the first year of every product sold.  
+> Return the resulting table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   product_id  
+> , YEAR AS first_year  
+> , quantity  
+> , price  
+> FROM Sales  
+> WHERE (product_id, YEAR) IN (  
+>     SELECT  
+>       product_id  
+>     , MIN(YEAR) AS YEAR  
+>     FROM  
+>       Sales  
+>     GROUP BY  
+>       product_id  
+>   );  
+> ```  
+>  
+> **Output:**  
+>  
+> | product_id | first_year | quantity | price |  
+> |------------|------------|----------|-------|  
+> | 100        | 2008       | 10       | 5000  |  
+> | 200        | 2011       | 15       | 9000  |  
+>  
+> **Explanation:**  
+> - The query selects the product_id, year, quantity, and price for the first year in which each product was sold.  
+> - The `MIN(YEAR)` function is used to determine the first year a product was sold.  
+> - The subquery returns the product_id and the minimum year for each product. The main query retrieves the quantity and price for these results.  
+>  
+</details>
+
 
 
 
