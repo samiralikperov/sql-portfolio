@@ -1193,8 +1193,6 @@
 > - The result is rounded to 2 decimal places to match the expected output.  
 >  
 </details>
-
-
 </details>
 
 
@@ -1203,6 +1201,88 @@
 
 
 
+
+
+
+
+
+
+
+
+
+<details>
+  <summary><strong>SORTING AND GROUPING</strong></summary>
+
+<details>
+  <summary>2356. Number of Unique Subjects Taught by Each Teacher</summary>  
+
+> **Table: Teacher**  
+>  
+> | Column Name | Type |  
+> |-------------|------|  
+> | teacher_id  | int  |  
+> | subject_id  | int  |  
+> | dept_id     | int  |  
+>  
+> (subject_id, dept_id) is the primary key (combinations of columns with unique values) of this table.  
+> Each row in this table indicates that the teacher with teacher_id teaches the subject subject_id in the department dept_id.  
+>  
+> **Problem Statement:**  
+> Write a solution to calculate the number of unique subjects each teacher teaches in the university.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT t.teacher_id, COUNT(DISTINCT t.subject_id) as cnt  
+> FROM Teacher as t  
+> GROUP BY t.teacher_id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | teacher_id | cnt |  
+> |------------|-----|  
+> | 1          | 2   |  
+> | 2          | 4   |  
+>  
+> **Explanation:**  
+> - The query groups the data by `teacher_id` to count how many distinct `subject_id` values each teacher is teaching.  
+> - The `DISTINCT` keyword ensures that only unique subjects are counted for each teacher.  
+> - The `COUNT` function calculates the number of distinct subjects per teacher, and the results are grouped by each teacher's ID.  
+>  
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</details>
 
 
 
