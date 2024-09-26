@@ -1253,6 +1253,51 @@
 >  
 </details>
 
+<details>
+  <summary>1141. User Activity for the Past 30 Days I</summary>  
+
+> **Table: Activity**  
+>  
+> | Column Name   | Type    |  
+> |---------------|---------|  
+> | user_id       | int     |  
+> | session_id    | int     |  
+> | activity_date | date    |  
+> | activity_type | enum    |  
+>  
+> This table may have duplicate rows.  
+> The `activity_type` column is an ENUM (category) of type ('open_session', 'end_session', 'scroll_down', 'send_message').  
+> The table shows the user activities for a social media website. Each session belongs to exactly one user.  
+>  
+> **Problem Statement:**  
+> Write a solution to find the daily active user count for a period of 30 days ending 2019-07-27 inclusively. A user was active on any day if they made at least one activity on that day.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT activity_date AS DAY,  
+>        count(DISTINCT user_id) AS active_users  
+> FROM Activity  
+> WHERE activity_date > date_sub('2019-07-27', interval 30 DAY)  
+>   AND activity_date <= '2019-07-27'  
+> GROUP BY DAY;  
+> ```  
+>  
+> **Output:**  
+>  
+> | DAY        | active_users |  
+> |------------|--------------|  
+> | 2019-07-20 | 2            |  
+> | 2019-07-21 | 2            |  
+>  
+> **Explanation:**  
+> - The query retrieves data for a 30-day window ending on '2019-07-27'.  
+> - For each day in the given period, the query counts the distinct number of users (`user_id`) who were active on that day.  
+> - The `GROUP BY` ensures that we get the user count for each specific day (`activity_date`).  
+> - The `DISTINCT` keyword ensures that each user is counted only once per day, regardless of the number of activities.  
+>  
+</details>
 
 
 
