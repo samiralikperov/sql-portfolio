@@ -13,6 +13,7 @@ This repository showcases a diverse range of SQL case studies, problem solutions
 ## Solutions by Platform
 This section features SQL problems and solutions from 7 different platforms, neatly arranged into directories. Within each platform's directory, problems are further categorized into subdirectories by difficulty level: easy, medium, & hard.
 1. [LeetCode](./LeetCode/)
+2. [DataCamp](./DataCamp/)
 
 ## License
 
