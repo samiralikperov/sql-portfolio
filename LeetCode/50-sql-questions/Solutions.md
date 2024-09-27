@@ -1363,17 +1363,181 @@
 > - The query selects the product_id, year, quantity, and price for the first year in which each product was sold.  
 > - The `MIN(YEAR)` function is used to determine the first year a product was sold.  
 > - The subquery returns the product_id and the minimum year for each product. The main query retrieves the quantity and price for these results.  
+
+</details>
+
+<details>
+  <summary>596. Classes More Than 5 Students</summary>  
+
+> **Table: Courses**  
 >  
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | student     | varchar |  
+> | class       | varchar |  
+>  
+> (student, class) is the primary key (combination of columns with unique values) for this table.  
+> Each row of this table indicates the name of a student and the class in which they are enrolled.  
+>  
+> **Problem Statement:**  
+> Write a solution to find all the classes that have at least five students.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT s.class  
+> FROM Courses AS s  
+> GROUP BY s.class  
+> HAVING COUNT(s.student) > 4;  
+> ```  
+>  
+> **Output:**  
+>  
+> | class |  
+> |-------|  
+> | Math  |  
+>  
+> **Explanation:**  
+> - The query selects classes from the Courses table.  
+> - It groups the results by class and uses the `HAVING` clause to filter classes with more than four students.  
+
 </details>
 
 
+<details>
+  <summary>1729. Find Followers Count</summary>  
+
+> **Table: Followers**  
+>  
+> | Column Name | Type  |  
+> |-------------|-------|  
+> | user_id     | int   |  
+> | follower_id | int   |  
+>  
+> (user_id, follower_id) is the primary key (combination of columns with unique values) for this table.  
+> This table contains the IDs of a user and a follower in a social media app where the follower follows the user.  
+>  
+> **Problem Statement:**  
+> Write a solution that will, for each user, return the number of followers.  
+> Return the result table ordered by user_id in ascending order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT user_id, COUNT(follower_id) AS followers_count  
+> FROM Followers  
+> GROUP BY user_id  
+> ORDER BY user_id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | user_id | followers_count |  
+> |---------|-----------------|  
+> | 0       | 1               |  
+> | 1       | 1               |  
+> | 2       | 2               |  
+>  
+> **Explanation:**  
+> - The query counts the number of followers for each user in the Followers table.  
+> - It groups the results by user_id and orders them in ascending order.  
+
+</details>
 
 
+<details>
+  <summary>619. Biggest Single Number</summary>  
+
+> **Table: MyNumbers**  
+>  
+> | Column Name | Type  |  
+> |-------------|-------|  
+> | num         | int   |  
+>  
+> This table may contain duplicates (In other words, there is no primary key for this table in SQL).  
+> Each row of this table contains an integer.  
+>  
+> **Problem Statement:**  
+> A single number is a number that appeared only once in the MyNumbers table.  
+> Find the largest single number. If there is no single number, report null.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> WITH single AS (  
+>     SELECT num  
+>     FROM MyNumbers  
+>     GROUP BY num  
+>     HAVING COUNT(*) = 1  
+> )  
+> SELECT MAX(num) AS num  
+> FROM single;  
+> ```  
+>  
+> **Output:**  
+>  
+> | num |  
+> |-----|  
+> | 6   |  
+>  
+> **Explanation:**  
+> - The query identifies numbers that appear only once in the MyNumbers table.  
+> - It uses a Common Table Expression (CTE) to filter for single occurrences and then finds the maximum of those numbers.  
+
+</details>
 
 
+<details>
+  <summary>1045. Customers Who Bought All Products</summary>  
 
+> **Table: Customer**  
+>  
+> | Column Name  | Type  |  
+> |--------------|-------|  
+> | customer_id  | int   |  
+> | product_key  | int   |  
+>  
+> This table may contain duplicate rows.  
+> customer_id is not NULL.  
+> product_key is a foreign key (reference column) to the Product table.  
+>  
+> **Table: Product**  
+>  
+> | Column Name  | Type  |  
+> |--------------|-------|  
+> | product_key  | int   |  
+>  
+> product_key is the primary key (column with unique values) for this table.  
+>  
+> **Problem Statement:**  
+> Write a solution to report the customer ids from the Customer table that bought all the products in the Product table.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT c.customer_id  
+> FROM Customer AS c  
+> GROUP BY c.customer_id  
+> HAVING COUNT(DISTINCT c.product_key) = (  
+>     SELECT COUNT(p.product_key)  
+>     FROM Product AS p  
+> );  
+> ```  
+>  
+> **Output:**  
+>  
+> | customer_id |  
+> |-------------|  
+> | 1           |  
+> | 3           |  
+>  
+> **Explanation:**  
+> - The query groups customers by their ID and counts distinct product keys for each customer.  
+> - It compares this count to the total number of products in the Product table to determine if the customer bought all products.  
 
-
+</details>
 
 
 
