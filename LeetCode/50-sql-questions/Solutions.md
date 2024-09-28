@@ -1606,16 +1606,315 @@
 </details>
 
 
+<details>
+  <summary>1789. Primary Department for Each Employee</summary>  
+
+> **Table: Employee**  
+>  
+> | Column Name   | Type   |  
+> |---------------|--------|  
+> | employee_id   | int    |  
+> | department_id | int    |  
+> | primary_flag  | varchar|  
+>  
+> (employee_id, department_id) is the primary key (combination of columns with unique values) for this table.  
+> employee_id is the id of the employee.  
+> department_id is the id of the department to which the employee belongs.  
+> primary_flag is an ENUM (category) of type ('Y', 'N'). If the flag is 'Y', the department is the primary department for the employee. If the flag is 'N', the department is not the primary.  
+>  
+> Employees can belong to multiple departments. When the employee joins other departments, they need to decide which department is their primary department. Note that when an employee belongs to only one department, their primary column is 'N'.  
+>  
+> **Problem Statement:**  
+> Write a solution to report all the employees with their primary department. For employees who belong to one department, report their only department.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   employee_id,  
+>   department_id  
+> FROM Employee  
+> GROUP BY employee_id  
+> HAVING COUNT(department_id) = 1  
+>  
+> UNION  
+>  
+> SELECT  
+>   employee_id,  
+>   department_id  
+> FROM Employee  
+> WHERE primary_flag = 'Y';  
+> ```  
+>  
+> **Output:**  
+>  
+> | employee_id | department_id |  
+> |-------------|---------------|  
+> | 1           | 1             |  
+> | 3           | 3             |  
+> | 2           | 1             |  
+> | 4           | 3             |  
+>  
+> **Explanation:**  
+> - The query retrieves employees who have only one department or their primary department if they belong to multiple departments.  
+> - It uses a union of two select statements to combine the results.  
+
+</details>
 
 
+<details>
+  <summary>610. Triangle Judgement</summary>  
+
+> **Table: Triangle**  
+>  
+> | Column Name | Type  |  
+> |-------------|-------|  
+> | x           | int   |  
+> | y           | int   |  
+> | z           | int   |  
+>  
+> In SQL, (x, y, z) is the primary key column for this table.  
+> Each row of this table contains the lengths of three line segments.  
+>  
+> **Problem Statement:**  
+> Report for every three line segments whether they can form a triangle.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   *,  
+>   (  
+>     CASE  
+>       WHEN x + y > z  
+>       AND x + z > y  
+>       AND y + z > x THEN 'Yes'  
+>       ELSE 'No'  
+>     END  
+>   ) AS triangle  
+> FROM Triangle;  
+> ```  
+>  
+> **Output:**  
+>  
+> | x  | y  | z  | triangle |  
+> |----|----|----|----------|  
+> | 13 | 15 | 30 | No       |  
+> | 10 | 20 | 15 | Yes      |  
+>  
+> **Explanation:**  
+> - The query checks the triangle inequality theorem for each set of line segments to determine if they can form a triangle.  
+> - It uses a `CASE` statement to return 'Yes' or 'No' based on the conditions.  
+
+</details>
 
 
+<details>
+  <summary>180. Consecutive Numbers</summary>  
+
+> **Table: Logs**  
+>  
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | id          | int     |  
+> | num         | varchar  |  
+>  
+> In SQL, id is the primary key for this table.  
+> id is an autoincrement column starting from 1.  
+>  
+> **Problem Statement:**  
+> Find all numbers that appear at least three times consecutively.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT DISTINCT num AS ConsecutiveNums  
+> FROM (  
+>     SELECT *,  
+>     LAG(num, 1) OVER (ORDER BY id) AS nlag,  
+>     LEAD(num, 1) OVER (ORDER BY id) AS nlead  
+>     FROM Logs  
+> ) temp1  
+> WHERE num = nlag  
+>   AND nlag = nlead;  
+> ```  
+>  
+> **Output:**  
+>  
+> | ConsecutiveNums |  
+> |------------------|  
+> | 1                |  
+>  
+> **Explanation:**  
+> - The query uses window functions `LAG` and `LEAD` to compare each number with its previous and next values.  
+> - It filters for numbers that are the same as their neighbors, indicating at least three consecutive occurrences.  
+
+</details>
 
 
+<details>
+  <summary>1164. Product Price at a Given Date</summary>  
+
+> **Table: Products**  
+>  
+> | Column Name   | Type    |  
+> |---------------|---------|  
+> | product_id    | int     |  
+> | new_price     | int     |  
+> | change_date   | date    |  
+>  
+> (product_id, change_date) is the primary key (combination of columns with unique values) of this table.  
+> Each row of this table indicates that the price of some product was changed to a new price at some date.  
+>  
+> **Problem Statement:**  
+> Write a solution to find the prices of all products on 2019-08-16. Assume the price of all products before any change is 10.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   product_id,  
+>   new_price AS price  
+> FROM Products  
+> WHERE (product_id, change_date) IN (  
+>     SELECT  
+>       product_id,  
+>       MAX(change_date) AS change_date  
+>     FROM Products  
+>     WHERE change_date <= '2019-08-16'  
+>     GROUP BY product_id  
+> )  
+>  
+> UNION  
+>  
+> SELECT  
+>   product_id,  
+>   10 AS price  
+> FROM Products  
+> GROUP BY product_id  
+> HAVING MIN(change_date) > '2019-08-16';  
+> ```  
+>  
+> **Output:**  
+>  
+> | product_id | price |  
+> |------------|-------|  
+> | 2          | 50    |  
+> | 1          | 35    |  
+> | 3          | 10    |  
+>  
+> **Explanation:**  
+> - The first part of the query retrieves the most recent price change for each product on or before 2019-08-16.  
+> - The second part handles products that had no price changes by assigning them a default price of 10.  
+
+</details>
 
 
+<details>
+  <summary>1204. Last Person to Fit in the Bus</summary>  
+
+> **Table: Queue**  
+>  
+> | Column Name   | Type    |  
+> |---------------|---------|  
+> | person_id     | int     |  
+> | person_name   | varchar  |  
+> | weight        | int     |  
+> | turn          | int     |  
+>  
+> person_id column contains unique values.  
+> This table has the information about all people waiting for a bus.  
+> The person_id and turn columns will contain all numbers from 1 to n, where n is the number of rows in the table.  
+> turn determines the order of which the people will board the bus, where turn=1 denotes the first person to board and turn=n denotes the last person to board.  
+> weight is the weight of the person in kilograms.  
+>  
+> **Problem Statement:**  
+> There is a queue of people waiting to board a bus. However, the bus has a weight limit of 1000 kilograms, so there may be some people who cannot board.  
+> Write a solution to find the person_name of the last person that can fit on the bus without exceeding the weight limit. The test cases are generated such that the first person does not exceed the weight limit.  
+> Note that only one person can board the bus at any given turn.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT person_name  
+> FROM (  
+>     SELECT *,  
+>     SUM(weight) OVER (ORDER BY turn) AS total_weight  
+>     FROM Queue  
+> ) subs  
+> WHERE total_weight <= 1000  
+> ORDER BY turn DESC  
+> LIMIT 1;  
+> ```  
+>  
+> **Output:**  
+>  
+> | person_name |  
+> |-------------|  
+> | John Cena   |  
+>  
+> **Explanation:**  
+> - The query calculates the cumulative weight of people boarding the bus in order of their turn.  
+> - It then filters for those whose total weight is within the limit and selects the last person able to board.  
+
+</details>
 
 
+<details>
+  <summary>1907. Count Salary Categories</summary>  
+
+> **Table: Accounts**  
+>  
+> | Column Name | Type  |  
+> |-------------|-------|  
+> | account_id  | int   |  
+> | income      | int   |  
+>  
+> account_id is the primary key (column with unique values) for this table.  
+> Each row contains information about the monthly income for one bank account.  
+>  
+> **Problem Statement:**  
+> Write a solution to calculate the number of bank accounts for each salary category. The salary categories are:  
+> - "Low Salary": All the salaries strictly less than $20000.  
+> - "Average Salary": All the salaries in the inclusive range [$20000, $50000].  
+> - "High Salary": All the salaries strictly greater than $50000.  
+> The result table must contain all three categories. If there are no accounts in a category, return 0.  
+>  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT 'Low Salary' AS category,  
+>        SUM(CASE WHEN income < 20000 THEN 1 ELSE 0 END) AS accounts_count  
+> FROM Accounts  
+> UNION  
+> SELECT 'Average Salary' AS category,  
+>        SUM(CASE WHEN income BETWEEN 20000 AND 50000 THEN 1 ELSE 0 END) AS accounts_count  
+> FROM Accounts  
+> UNION  
+> SELECT 'High Salary' AS category,  
+>        SUM(CASE WHEN income > 50000 THEN 1 ELSE 0 END) AS accounts_count  
+> FROM Accounts;  
+> ```  
+>  
+> **Output:**  
+>  
+> | category       | accounts_count |  
+> |----------------|----------------|  
+> | Low Salary     | 1              |  
+> | Average Salary | 0              |  
+> | High Salary    | 3              |  
+>  
+> **Explanation:**  
+> - The query counts the number of accounts in each salary category using conditional aggregation.  
+> - Each category is represented in the result set, ensuring that all categories are included regardless of whether there are any accounts in that category.  
+
+</details>
 
 
 
