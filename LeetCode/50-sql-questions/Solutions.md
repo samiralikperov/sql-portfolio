@@ -1538,6 +1538,7 @@
 > - It compares this count to the total number of products in the Product table to determine if the customer bought all products.  
 
 </details>
+</details>
 
 
 
@@ -1555,12 +1556,93 @@
 
 
 
+<details>
+  <summary><strong>ADVANCED SELECT AND JOINS</strong></summary>
 
+<details>
+  <summary>1731. The Number of Employees Which Report to Each Employee</summary>  
+
+> **Table: Employees**  
+>  
+> | Column Name  | Type     |  
+> |--------------|----------|  
+> | employee_id  | int      |  
+> | name         | varchar  |  
+> | reports_to   | int      |  
+> | age          | int      |  
+>  
+> employee_id is the column with unique values for this table.  
+> This table contains information about the employees and the id of the manager they report to. Some employees do not report to anyone (reports_to is null).  
+>  
+> **Problem Statement:**  
+> For this problem, we will consider a manager an employee who has at least 1 other employee reporting to them.  
+> Write a solution to report the ids and the names of all managers, the number of employees who report directly to them, and the average age of the reports rounded to the nearest integer.  
+> Return the result table ordered by employee_id.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   e.employee_id,  
+>   e.name,  
+>   COUNT(es.employee_id) AS reports_count,  
+>   ROUND(AVG(es.age)) AS average_age  
+> FROM Employees AS e  
+>   INNER JOIN Employees AS es ON e.employee_id = es.reports_to  
+> GROUP BY e.employee_id  
+> ORDER BY e.employee_id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | employee_id | name  | reports_count | average_age |  
+> |-------------|-------|---------------|-------------|  
+> | 9           | Hercy | 2             | 39          |  
+>  
+> **Explanation:**  
+> - The query counts the number of employees reporting to each manager and calculates the average age of these employees.  
+> - It uses an inner join to match managers with their direct reports and groups the results by manager ID.  
 
 </details>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+</details>
 
 
 
