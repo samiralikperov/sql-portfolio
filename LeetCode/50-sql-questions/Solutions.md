@@ -2273,30 +2273,68 @@
 </details>
 
 
+<details>
+  <summary>185. Department Top Three Salaries</summary>  
 
+> **Table: Employee**  
+>  
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | id           | int     |  
+> | name         | varchar  |  
+> | salary       | int     |  
+> | departmentId | int     |  
+>  
+> id is the primary key (column with unique values) for this table.  
+> departmentId is a foreign key (reference column) of the ID from the Department table.  
+> Each row of this table indicates the ID, name, and salary of an employee. It also contains the ID of their department.  
+>  
+> **Table: Department**  
+>  
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | id          | int     |  
+> | name        | varchar  |  
+>  
+> id is the primary key (column with unique values) for this table.  
+> Each row of this table indicates the ID of a department and its name.  
+>  
+> **Problem Statement:**  
+> A company's executives are interested in seeing who earns the most money in each of the company's departments. A high earner in a department is an employee who has a salary in the top three unique salaries for that department.  
+> Write a solution to find the employees who are high earners in each of the departments.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT Department, Employee, Salary  
+> FROM (  
+>     SELECT  
+>         d.name AS Department    
+>        , e.name AS Employee  
+>        , e.salary AS Salary  
+>        , DENSE_RANK() OVER (PARTITION BY d.name ORDER BY Salary DESC) AS dr  
+>     FROM Employee AS e  
+>     JOIN Department AS d ON e.departmentId = d.id  
+>    ) AS tabl  
+> WHERE dr <= 3;  
+> ```  
+>  
+> **Output:**  
+>  
+> | Department | Employee | Salary |  
+> |------------|----------|--------|  
+> | IT         | Max      | 90000  |  
+> | IT         | Joe      | 85000  |  
+> | IT         | Randy    | 85000  |  
+> | IT         | Will     | 70000  |  
+> | Sales      | Henry    | 80000  |  
+> | Sales      | Sam      | 60000  |  
+>  
+> **Explanation:**  
+> - The query uses the `DENSE_RANK()` window function to assign a rank to each employee's salary within their department.  
+> - It selects the top three unique salaries for each department and returns the corresponding employee names and salaries.  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</details>
 </details>
 
