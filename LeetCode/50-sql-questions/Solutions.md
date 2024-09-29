@@ -2213,6 +2213,64 @@
 </details>
 
 
+<details>
+  <summary>585. Investments in 2016</summary>  
+
+> **Table: Insurance**  
+>  
+> | Column Name | Type   |  
+> |-------------|--------|  
+> | pid         | int    |  
+> | tiv_2015    | float  |  
+> | tiv_2016    | float  |  
+> | lat         | float  |  
+> | lon         | float  |  
+>  
+> pid is the primary key (column with unique values) for this table.  
+> Each row of this table contains information about one policy where:  
+> - pid is the policyholder's policy ID.  
+> - tiv_2015 is the total investment value in 2015 and tiv_2016 is the total investment value in 2016.  
+> - lat is the latitude of the policyholder's city. It's guaranteed that lat is not NULL.  
+> - lon is the longitude of the policyholder's city. It's guaranteed that lon is not NULL.  
+>  
+> **Problem Statement:**  
+> Write a solution to report the sum of all total investment values in 2016 (tiv_2016), for all policyholders who:  
+> 1. have the same tiv_2015 value as one or more other policyholders, and  
+> 2. are not located in the same city as any other policyholder (i.e., the (lat, lon) attribute pairs must be unique).  
+> Round tiv_2016 to two decimal places.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT ROUND(SUM(tiv_2016), 2) AS tiv_2016  
+> FROM Insurance  
+> WHERE  1=1
+> AND (lat, lon) IN (  
+>     SELECT lat, lon  
+>     FROM Insurance  
+>     GROUP BY lat, lon  
+>     HAVING COUNT(*) = 1  
+> )  
+> AND tiv_2015 IN (  
+>     SELECT tiv_2015  
+>     FROM Insurance  
+>     GROUP BY tiv_2015  
+>     HAVING COUNT(*) > 1  
+> );  
+> ```  
+>  
+> **Output:**  
+>  
+> | tiv_2016 |  
+> |----------|  
+> | 45       |  
+>  
+> **Explanation:**  
+> - The query first filters for unique (lat, lon) pairs to ensure the policyholders are not located in the same city.  
+> - It also checks for tiv_2015 values that are shared among multiple policyholders.  
+> - Finally, it sums up the tiv_2016 values for the filtered records and rounds the result to two decimal places.  
+
+</details>
 
 
 
