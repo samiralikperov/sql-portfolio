@@ -1915,6 +1915,7 @@
 > - Each category is represented in the result set, ensuring that all categories are included regardless of whether there are any accounts in that category.  
 
 </details>
+</details>
 
 
 
@@ -1929,20 +1930,210 @@
 
 
 
+<details>
+  <summary><strong>SUBQUERIES</strong></summary>
+
+<details>
+  <summary>1978. Employees Whose Manager Left the Company</summary>  
+
+> **Table: Employees**  
+>  
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | employee_id  | int     |  
+> | name         | varchar  |  
+> | manager_id   | int     |  
+> | salary       | int     |  
+>  
+> In SQL, employee_id is the primary key for this table.  
+> This table contains information about the employees, their salary, and the ID of their manager. Some employees do not have a manager (manager_id is null).  
+>  
+> **Problem Statement:**  
+> Find the IDs of the employees whose salary is strictly less than $30000 and whose manager left the company. When a manager leaves the company, their information is deleted from the Employees table, but the reports still have their manager_id set to the manager that left.  
+> Return the result table ordered by employee_id.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT employee_id  
+> FROM Employees  
+> WHERE manager_id NOT IN (  
+>     SELECT employee_id  
+>     FROM Employees  
+> )  
+> AND salary < 30000  
+> ORDER BY employee_id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | employee_id |  
+> |-------------|  
+> | 11          |  
+>  
+> **Explanation:**  
+> - The query selects employees with a salary below $30000 whose managers are no longer listed in the Employees table.  
+> - It checks for managers by using a subquery to filter out any current employees based on their manager_id.  
+
+</details>
 
 
+<details>
+  <summary>626. Exchange Seats</summary>  
+
+> **Table: Seat**  
+>  
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | id          | int     |  
+> | student     | varchar  |  
+>  
+> id is the primary key (unique value) column for this table.  
+> Each row of this table indicates the name and the ID of a student.  
+> The ID sequence always starts from 1 and increments continuously.  
+>  
+> **Problem Statement:**  
+> Write a solution to swap the seat id of every two consecutive students. If the number of students is odd, the id of the last student is not swapped.  
+> Return the result table ordered by id in ascending order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT (  
+>     CASE  
+>       WHEN id % 2 = 0 THEN id - 1  
+>       WHEN id = (SELECT COUNT(*) FROM Seat) THEN id  
+>       ELSE id + 1  
+>     END
+>     ) AS id
+>     , student  
+> FROM Seat  
+> ORDER BY id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | id | student   |  
+> |----|-----------|  
+> | 1  | Doris     |  
+> | 2  | Abbot     |  
+> | 3  | Green     |  
+> | 4  | Emerson   |  
+> | 5  | Jeames    |  
+>  
+> **Explanation:**  
+> - The query uses a `CASE` statement to determine the new id for each student based on whether their current id is even or odd.  
+> - It adjusts the ids accordingly, ensuring that pairs are swapped while leaving the last student unchanged if there’s an odd number of students.  
+
+</details>
 
 
+<details>
+  <summary>1341. Movie Rating</summary>  
 
-
-
-
-
-
-  
+> **Table: Movies**  
+>  
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | movie_id     | int     |  
+> | title        | varchar  |  
+>  
+> movie_id is the primary key (column with unique values) for this table.  
+> title is the name of the movie.  
+>  
+> **Table: Users**  
+>  
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | user_id      | int     |  
+> | name         | varchar  |  
+>  
+> user_id is the primary key (column with unique values) for this table.  
+> The column 'name' has unique values.  
+>  
+> **Table: MovieRating**  
+>  
+> | Column Name  | Type    |  
+> |--------------|---------|  
+> | movie_id     | int     |  
+> | user_id      | int     |  
+> | rating       | int     |  
+> | created_at   | date    |  
+>  
+> (movie_id, user_id) is the primary key (column with unique values) for this table.  
+> This table contains the rating of a movie by a user in their review.  
+> created_at is the user's review date.  
+>  
+> **Problem Statement:**  
+> Write a solution to:  
+> 1. Find the name of the user who has rated the greatest number of movies. In case of a tie, return the lexicographically smaller user name.  
+> 2. Find the movie name with the highest average rating in February 2020. In case of a tie, return the lexicographically smaller movie name.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> (SELECT u.name AS results  
+> FROM MovieRating AS mr  
+>     INNER JOIN Users AS u ON mr.user_id = u.user_id  
+> GROUP BY mr.user_id  
+> ORDER BY COUNT(mr.user_id) DESC, u.name ASC  
+> LIMIT 1)  
+>  
+> UNION ALL  
+>  
+> (SELECT m.title AS results  
+> FROM MovieRating AS mr  
+>     INNER JOIN Movies AS m ON mr.movie_id = m.movie_id  
+> WHERE mr.created_at LIKE '2020-02%'  
+> GROUP BY mr.movie_id  
+> ORDER BY AVG(mr.rating) DESC, m.title ASC  
+> LIMIT 1);  
+> ```  
+>  
+> **Output:**  
+>  
+> | results  |  
+> |----------|  
+> | Daniel   |  
+> | Frozen 2 |  
+>  
+> **Explanation:**  
+> - The first part of the query finds the user who rated the most movies, ordering by the count of ratings and the name for ties.  
+> - The second part calculates the highest average rating for movies in February 2020, with ties resolved lexicographically by movie title.  
 
 </details>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</details>
 
