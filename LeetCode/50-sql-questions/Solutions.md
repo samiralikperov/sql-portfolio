@@ -2423,8 +2423,149 @@
 </details>
 
 
+<details>
+  <summary>196. Delete Duplicate Emails</summary>  
 
+> **Table: Person**  
+>  
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | id          | int     |  
+> | email       | varchar  |  
+>  
+> id is the primary key (column with unique values) for this table.  
+> Each row of this table contains an email. The emails will not contain uppercase letters.  
+>  
+> **Problem Statement:**  
+> Write a solution to delete all duplicate emails, keeping only one unique email with the smallest id.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> DELETE FROM Person  
+> WHERE id NOT IN (  
+>     SELECT min_id  
+>     FROM (  
+>         SELECT email, MIN(id) AS min_id  
+>         FROM Person  
+>         GROUP BY email  
+>     ) tabl  
+> );  
+> ```  
+>  
+> **Output:**  
+>  
+> | id | email            |  
+> |----|------------------|  
+> | 1  | john@example.com |  
+> | 2  | bob@example.com  |  
+>  
+> **Explanation:**  
+> - The query deletes duplicate emails by selecting the minimum id for each unique email and keeping those rows while deleting others.  
+> - The inner query groups the emails and finds the minimum id, and the outer query deletes entries not matching those ids.  
+
+Output
+| SecondHighestSalary |
+| ------------------- |
+| 200                 |
 
 
 </details>
 
+
+<details>
+  <summary>176. Second Highest Salary</summary>  
+
+> **Table: Employee**  
+>  
+> | Column Name | Type  |  
+> |-------------|-------|  
+> | id          | int   |  
+> | salary      | int   |  
+>  
+> id is the primary key (column with unique values) for this table.  
+> Each row of this table contains information about the salary of an employee.  
+>  
+> **Problem Statement:**  
+> Write a solution to find the second highest distinct salary from the Employee table. If there is no second highest salary, return null (return None in Pandas).  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT MAX(salary) AS SecondHighestSalary  
+> FROM Employee  
+> WHERE salary NOT IN (  
+>     SELECT MAX(salary)  
+>     FROM Employee  
+> );  
+> ```  
+>  
+> **Output:**  
+>  
+> | SecondHighestSalary |  
+> |---------------------|  
+> | 200                 |  
+>  
+> **Explanation:**  
+> - The query retrieves the maximum salary that is not the highest salary by excluding the highest salary from the results.  
+> - If there's no second highest salary, it returns null as required.  
+
+</details>
+
+
+
+<details>
+  <summary>1484. Group Sold Products By The Date</summary>  
+
+> **Table: Activities**  
+>  
+> | Column Name | Type    |  
+> |-------------|---------|  
+> | sell_date   | date    |  
+> | product     | varchar  |  
+>  
+> There is no primary key (column with unique values) for this table. It may contain duplicates.  
+> Each row of this table contains the product name and the date it was sold in a market.  
+>  
+> **Problem Statement:**  
+> Write a solution to find for each date the number of different products sold and their names.  
+> The sold products names for each date should be sorted lexicographically.  
+> Return the result table ordered by sell_date.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   sell_date,  
+>   COUNT(DISTINCT product) AS num_sold,  
+>   GROUP_CONCAT(DISTINCT product ORDER BY product SEPARATOR ',') AS products  
+> FROM Activities  
+> GROUP BY sell_date  
+> ORDER BY sell_date;  
+> ```  
+>  
+> **Output:**  
+>  
+> | sell_date  | num_sold | products                     |  
+> |------------|----------|------------------------------|  
+> | 2020-05-30 | 3        | Basketball,Headphone,T-Shirt |  
+> | 2020-06-01 | 2        | Bible,Pencil                 |  
+> | 2020-06-02 | 1        | Mask                         |  
+>  
+> **Explanation:**  
+> - The query counts the distinct products sold on each date and concatenates the names of those products in sorted order.  
+> - It groups the results by sell_date to ensure each date is represented in the output.  
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+</details>
