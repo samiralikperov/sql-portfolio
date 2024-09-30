@@ -2338,3 +2338,93 @@
 </details>
 </details>
 
+<details>
+  <summary><strong>ADVANCED STRING FUNCTION/REGEX/CLAUSE</strong></summary>
+
+<details>
+  <summary>1667. Fix Names in a Table</summary>  
+
+> **Table: Users**  
+>  
+> | Column Name    | Type    |  
+> |----------------|---------|  
+> | user_id        | int     |  
+> | name           | varchar  |  
+>  
+> user_id is the primary key (column with unique values) for this table.  
+> This table contains the ID and the name of the user. The name consists of only lowercase and uppercase characters.  
+>  
+> **Problem Statement:**  
+> Write a solution to fix the names so that only the first character is uppercase and the rest are lowercase.  
+> Return the result table ordered by user_id.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   user_id  
+>  ,CONCAT(UPPER(SUBSTR(name, 1, 1)), LOWER(SUBSTR(name, 2))) AS name  
+> FROM Users  
+> ORDER BY user_id;  
+> ```  
+>  
+> **Output:**  
+>  
+> | user_id | NAME  |  
+> |---------|-------|  
+> | 1       | Alice |  
+> | 2       | Bob   |  
+>  
+> **Explanation:**  
+> - The query modifies each name by converting the first letter to uppercase and the rest to lowercase using string functions.  
+> - It orders the results by user_id to maintain the original sequence.  
+
+</details>
+
+<details>
+  <summary>1527. Patients With a Condition</summary>  
+
+> **Table: Patients**  
+>  
+> | Column Name   | Type    |  
+> |---------------|---------|  
+> | patient_id    | int     |  
+> | patient_name  | varchar  |  
+> | conditions     | varchar  |  
+>  
+> patient_id is the primary key (column with unique values) for this table.  
+> 'conditions' contains 0 or more codes separated by spaces.  
+> This table contains information about the patients in the hospital.  
+>  
+> **Problem Statement:**  
+> Write a solution to find the patient_id, patient_name, and conditions of the patients who have Type I Diabetes. Type I Diabetes always starts with the DIAB1 prefix.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT *  
+> FROM Patients  
+> WHERE conditions LIKE 'DIAB1%'  
+>    OR conditions LIKE '% DIAB1%';  
+> ```  
+>  
+> **Output:**  
+>  
+> | patient_id | patient_name | conditions   |  
+> |------------|--------------|--------------|  
+> | 3          | Bob          | DIAB100 MYOP |  
+> | 4          | George       | ACNE DIAB100 |  
+>  
+> **Explanation:**  
+> - The query selects all patients whose conditions include Type I Diabetes, checking both the beginning and the presence of the code within the string of conditions.  
+> - It uses the `LIKE` operator to filter for the desired prefix.  
+
+</details>
+
+
+
+
+
+</details>
+
