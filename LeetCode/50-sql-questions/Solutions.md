@@ -2559,8 +2559,107 @@ Output
 </details>
 
 
+<details>
+  <summary>1327. List the Products Ordered in a Period</summary>  
+
+> **Table: Products**  
+>  
+> | Column Name      | Type    |  
+> |------------------|---------|  
+> | product_id       | int     |  
+> | product_name     | varchar  |  
+> | product_category  | varchar  |  
+>  
+> product_id is the primary key (column with unique values) for this table.  
+> This table contains data about the company's products.  
+>  
+> **Table: Orders**  
+>  
+> | Column Name   | Type    |  
+> |---------------|---------|  
+> | product_id    | int     |  
+> | order_date     | date    |  
+> | unit          | int     |  
+>  
+> This table may have duplicate rows.  
+> product_id is a foreign key (reference column) to the Products table.  
+> unit is the number of products ordered on order_date.  
+>  
+> **Problem Statement:**  
+> Write a solution to get the names of products that have at least 100 units ordered in February 2020 and their amount.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT  
+>   product_name,  
+>   SUM(unit) AS unit  
+> FROM Orders o  
+>   JOIN Products p USING (product_id)  
+> WHERE order_date >= '2020-02-01'  
+>   AND order_date < '2020-03-01'  
+> GROUP BY product_name  
+> HAVING SUM(unit) >= 100;  
+> ```  
+>  
+> **Output:**  
+>  
+> | product_name       | unit |  
+> |--------------------|------|  
+> | Leetcode Solutions  | 130  |  
+> | Leetcode Kit       | 100  |  
+>  
+> **Explanation:**  
+> - The query joins the Orders and Products tables to filter products ordered in February 2020.  
+> - It groups the results by product name, summing the units ordered, and only includes those with at least 100 units.  
+
+</details>
 
 
+<details>
+  <summary>1517. Find Users With Valid E-Mails</summary>  
+
+> **Table: Users**  
+>  
+> | Column Name   | Type    |  
+> |---------------|---------|  
+> | user_id       | int     |  
+> | name          | varchar  |  
+> | mail          | varchar  |  
+>  
+> user_id is the primary key (column with unique values) for this table.  
+> This table contains information about the users signed up on a website. Some e-mails are invalid.  
+>  
+> **Problem Statement:**  
+> Write a solution to find the users who have valid emails.  
+> A valid e-mail has a prefix name and a domain where:  
+> - The prefix name is a string that may contain letters (upper or lower case), digits, underscore '_', period '.', and/or dash '-'. The prefix name must start with a letter.  
+> - The domain is '@leetcode.com'.  
+> Return the result table in any order.  
+>  
+> **Solution:**  
+>  
+> ```sql  
+> SELECT *  
+> FROM Users  
+> WHERE  
+>   mail REGEXP '^[A-Za-z][A-Za-z0-9_.-]*@leetcode[.]com$';  
+> ```  
+>  
+> **Output:**  
+>  
+> | user_id | name      | mail                    |  
+> |---------|-----------|-------------------------|  
+> | 1       | Winston   | winston@leetcode.com    |  
+> | 3       | Annabelle | bella-@leetcode.com     |  
+> | 4       | Sally     | sally.come@leetcode.com |  
+>  
+> **Explanation:**  
+> - The query uses a regular expression to filter valid email addresses based on the specified rules for the prefix name and domain.  
+> - It retrieves all user information for those with valid emails matching the criteria.  
+
+</details>
 
 
 
