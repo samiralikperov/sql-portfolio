@@ -59,3 +59,44 @@ The diagram below shows the relationships between the tables:
 | product_id  | INT            | Product ID                                               |
 | name        | VARCHAR(50)    | Product name                                            |
 | price       | FLOAT(4)       | Product price                                           |
+
+
+
+# Basic SQL Queries
+
+## Task 1
+
+### Description:
+Retrieve all records from the `products` table.
+
+### Resulting Table Fields:
+- **product_id**
+- **name**
+- **price**
+
+### SQL Query:
+```sql
+SELECT product_id,
+       name,
+       price
+FROM   products;
+```
+
+## Task 2
+
+### Description:
+Retrieve all records from the `products` table, sorting them by product names in alphabetical order (ascending). Use the `ORDER BY` clause for sorting.
+
+### Resulting Table Fields:
+- **product_id**
+- **name**
+- **price**
+
+### SQL Query:
+```sql
+SELECT product_id,
+       name,
+       price
+FROM   products
+ORDER BY name;
+
