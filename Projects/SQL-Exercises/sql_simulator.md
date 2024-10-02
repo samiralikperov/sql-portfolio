@@ -118,9 +118,25 @@ LIMIT 1;
 This query selects the `name` and `price` fields from the `products` table, and calculates the length of each product's name using the `LENGTH` function, aliasing it as `name_length`. The results are sorted in descending order based on `name_length`, ensuring that the product with the longest name appears first. The `LIMIT 1` clause restricts the output to only the top entry.
 
 
+## Task 7
+### Description:
+Apply the `UPPER` and `SPLIT_PART` functions sequentially to the `name` column to transform the product names in the `products` table, retaining only the first word in uppercase. Name the column containing the new first word as `first_word`. Include the original product names, the new first word, and the product prices in the result. Sort the output by the original product names in ascending order.
+### Resulting Table Fields:
+- **name**
+- **first_word**
+- **price**
 
+### SQL Query:
+```sql
+SELECT name,
+       UPPER(SPLIT_PART(name, ' ', 1)) AS first_word,
+       price
+FROM   products
+ORDER BY name;
+```
 
-
+### Explanation:
+This query selects the name and price fields from the products table. It uses the SPLIT_PART function to extract the first word from the name column, and then applies the UPPER function to convert it to uppercase, aliasing it as first_word. The results are sorted in ascending order based on the original product names in the name column.
 
 
 
