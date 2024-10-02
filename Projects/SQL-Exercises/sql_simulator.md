@@ -97,8 +97,25 @@ LIMIT 5;
 This query selects the `name` and `price` fields from the `products` table, renaming them to `product_name` and `product_price` using the `AS` keyword. The results are sorted in descending order by `price`, and the `LIMIT 5` clause again restricts the output to the top 5 most expensive products.
 
 
+## Task 6
+### Description:
+Using the `SELECT`, `FROM`, `ORDER BY`, and `LIMIT` operators, along with the `LENGTH` function, determine the product with the longest name in the `products` table. Display its name, the length of the name in characters, and the price of the product. Name the column with the length of the name as `name_length`.
+### Resulting Table Fields:
+- **name**
+- **name_length**
+- **price**
 
-
+### SQL Query:
+```sql
+SELECT name,
+       LENGTH(name) AS name_length,
+       price
+FROM   products
+ORDER BY name_length DESC
+LIMIT 1;
+```
+### Explanation:
+This query selects the `name` and `price` fields from the `products` table, and calculates the length of each product's name using the `LENGTH` function, aliasing it as `name_length`. The results are sorted in descending order based on `name_length`, ensuring that the product with the longest name appears first. The `LIMIT 1` clause restricts the output to only the top entry.
 
 
 
