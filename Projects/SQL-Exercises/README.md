@@ -10,7 +10,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 
 # Structure and Content of Tables
 
-## user_actions вАФ User actions with orders.
+## user_actions -  User actions with orders.
 
 | Column      | Data Type     | Description                                                        |
 |-------------|----------------|--------------------------------------------------------------------|
@@ -19,7 +19,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 | action      | VARCHAR(50)    | User action with the order; 'create_order' вАФ creating an order, 'cancel_order' вАФ canceling an order |
 | time        | TIMESTAMP      | Time of the action                                                |
 
-## courier_actions вАФ Courier actions with orders.
+## courier_actions - Courier actions with orders.
 
 | Column      | Data Type     | Description                                                        |
 |-------------|----------------|--------------------------------------------------------------------|
@@ -28,7 +28,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 | action      | VARCHAR(50)    | Courier action with the order; 'accept_order' вАФ accepting an order, 'deliver_order' вАФ delivering an order |
 | time        | TIMESTAMP      | Time of the action                                                |
 
-## orders вАФ Information about orders.
+## orders - Information about orders.
 
 | Column          | Data Type     | Description                                                  |
 |-----------------|----------------|--------------------------------------------------------------|
@@ -36,7 +36,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 | creation_time   | TIMESTAMP      | Time of order creation                                     |
 | product_ids     | integer[]      | List of product IDs in the order                          |
 
-## users вАФ Information about users.
+## users - Information about users.
 
 | Column      | Data Type     | Description                                                  |
 |-------------|----------------|--------------------------------------------------------------|
@@ -44,7 +44,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 | birth_date  | DATE           | Date of birth                                             |
 | sex         | VARCHAR(50)    | Gender; 'male' вАФ male, 'female' вАФ female                  |
 
-## couriers вАФ Information about couriers.
+## couriers - Information about couriers.
 
 | Column      | Data Type     | Description                                                  |
 |-------------|----------------|--------------------------------------------------------------|
@@ -52,7 +52,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 | birth_date  | DATE           | Date of birth                                            |
 | sex         | VARCHAR(50)    | Gender; 'male' вАФ male, 'female' вАФ female                  |
 
-## products вАФ Information about products delivered by the service.
+## products - Information about products delivered by the service.
 
 | Column      | Data Type     | Description                                                  |
 |-------------|----------------|--------------------------------------------------------------|
