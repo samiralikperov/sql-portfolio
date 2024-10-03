@@ -176,12 +176,144 @@ SELECT CONCAT('Заказ № ', order_id, ' создан ', DATE(creation_time)
 FROM   orders
 LIMIT 200;
 ```
-## Explanation:
+### Explanation:
 This query selects the order_id and creation_time fields from the orders table. It uses the CONCAT function to combine the static text "Заказ №", the order_id, the static text "создан", and the formatted creation_time (converted to date) into a single string, which is aliased as order_info. The LIMIT 200 clause restricts the output to the first 200 records.
 
 
 
 
+
+## Task 10
+### Description:
+Retrieve the IDs of all couriers and their birth years from the `couriers` table. The birth year should be extracted from the `birth_date` column. Name the new column with the year as `birth_year`. Sort the results first by the birth year in descending order (from youngest to oldest), and then by the courier ID in ascending order.
+### Resulting Table Fields:
+- **courier_id**
+- **birth_year**
+### SQL Query:
+```sql
+SELECT courier_id,
+       DATE_PART('year', birth_date) AS birth_year
+FROM   couriers
+ORDER BY birth_year DESC, courier_id;
+```
+### Explanation:
+This query selects the courier_id and extracts the year from the birth_date field using the DATE_PART function, aliasing it as birth_year. The results are sorted in descending order by birth_year to list the youngest couriers first, and then by courier_id in ascending order to maintain a consistent ordering among couriers born in the same year.
+
+
+## Task 11
+### Description:
+Similar to the previous task, retrieve the IDs of all couriers and their birth years from the `couriers` table. Apply the `COALESCE` function to the extracted year so that instead of `NULL` values, the result will contain the text value "unknown". Keep the field names the same as before. Sort the final table first by the birth year in descending order (from youngest to oldest) and then by the courier ID in ascending order.
+### Resulting Table Fields:
+- **courier_id**
+- **birth_year**
+### SQL Query:
+```sql
+SELECT courier_id,
+       COALESCE(DATE_PART('year', birth_date)::VARCHAR, 'unknown') AS birth_year
+FROM   couriers
+ORDER BY birth_year DESC, courier_id;
+```
+### Explanation:
+This query selects the courier_id and extracts the year from the birth_date field using the DATE_PART function. The COALESCE function is applied to replace any NULL values in the year with the text "unknown". The results are sorted in descending order by birth_year to show the youngest couriers first, and then by courier_id in ascending order to maintain a consistent ordering among couriers with the same birth year.
+
+
+
+## Task 12
+### Description:
+Imagine that for some inexplicable reason, we decided to increase the price of all products in the `products` table by 5%. Output the IDs and names of all products, along with their old and new prices. Name the column with the old price as `old_price` and the column with the new price as `new_price`. 
+Sort the results first by the new price in descending order and then by the product ID in ascending order.
+### Resulting Table Fields:
+- **product_id**
+- **name**
+- **old_price**
+- **new_price**
+### SQL Query:
+```sql
+SELECT product_id,
+       name,
+       price AS old_price,
+       price * 1.05 AS new_price
+FROM   products
+ORDER BY new_price DESC, product_id;
+```
+### Explanation:
+This query selects the product_id, name, and price from the products table. The price is aliased as old_price, and the new price is calculated by multiplying the old price by 1.05, aliased as new_price. The results are sorted in descending order by new_price to show the most expensive products first, and then by product_id in ascending order to maintain a consistent ordering among products.
+
+
+## Task 13
+
+### Description:
+Once again, increase the price of all products by 5%. However, this time apply the `ROUND` function to the column with the new price. Output the IDs and names of the products, their old prices, and the new prices rounded to one decimal place. Do not change the data type of the new price.
+Sort the results first by the new price in descending order and then by the product ID in ascending order.
+### Resulting Table Fields:
+- **product_id**
+- **name**
+- **old_price**
+- **new_price**
+### SQL Query:
+```sql
+SELECT product_id,
+       name,
+       price AS old_price,
+       ROUND(price * 1.05, 1) AS new_price
+FROM   products
+ORDER BY new_price DESC, product_id;
+```
+### Explanation:
+This query selects the product_id, name, and price from the products table. The price is aliased as old_price, and the new price is calculated by multiplying the old price by 1.05 and then rounding it to one decimal place using the ROUND function, aliasing it as new_price. The results are sorted in descending order by new_price to show the most expensive products first, and then by product_id in ascending order to maintain a consistent ordering among products.
+
+
+
+
+## Task 14
+### Description:
+Increase the price by 5% only for those products whose price exceeds 100 rubles. Leave the prices of other products unchanged. Additionally, do not raise the price of caviar, which already costs 800 rubles. Output the IDs and names of all products, their old prices, and their new prices without rounding.
+Sort the results first by the new price in descending order and then by the product ID in ascending order.
+### Resulting Table Fields:
+- **product_id**
+- **name**
+- **old_price**
+- **new_price**
+### SQL Query:
+```sql
+SELECT product_id,
+       name,
+       price AS old_price,
+       CASE 
+           WHEN price <= 100 OR name = 'икра' THEN price
+           WHEN price > 100 THEN price * 1.05
+           ELSE 0 
+       END AS new_price
+FROM   products
+ORDER BY new_price DESC, product_id;
+```
+### Explanation:
+This query selects the product_id, name, and price from the products table, with price aliased as old_price. It uses a CASE statement to determine the new_price: if the price is less than or equal to 100 rubles or if the product name is 'икра', it retains the original price; if the price is greater than 100 rubles, it increases the price by 5%. The results are sorted in descending order by new_price to display the most expensive products first, followed by the product ID in ascending order.
+
+
+
+## Task 15
+### Description:
+Calculate the VAT for each product in the `products` table and compute the price excluding VAT. Output all information about the products, including the tax amount and the price before tax. Name the columns for the tax amount and the price before VAT as `tax` and `price_before_tax`, respectively. Round the values in these columns to two decimal places.
+Sort the results first by the price before VAT in descending order and then by the product ID in ascending order.
+### Resulting Table Fields:
+- **product_id**
+- **name**
+- **price**
+- **tax**
+- **price_before_tax**
+### SQL Query:
+```sql
+SELECT product_id,
+       name,
+       price,
+       ROUND(price / 120 * 20, 2) AS tax,
+       ROUND(price - price / 120 * 20, 2) AS price_before_tax
+FROM   products
+ORDER BY price_before_tax DESC, product_id;
+```
+### Explanation:
+This query selects the product_id, name, and price from the products table. It calculates the VAT (tax) as 20% of the price divided by 120, rounding it to two decimal places. The price before tax (price_before_tax) is calculated by subtracting the VAT from the original price, also rounded to two decimal places. The results are sorted in descending order by price_before_tax to show the most expensive products first, and then by product_id in ascending order.
 
 
 
