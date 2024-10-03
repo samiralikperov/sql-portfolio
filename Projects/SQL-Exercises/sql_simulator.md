@@ -1,5 +1,26 @@
 # Basic SQL Queries
 
+## SQL Task Links
+
+| Task Number | Task Description                                     | Link                                     |
+|-------------|-----------------------------------------------------|------------------------------------------|
+| Task 1      | Retrieve all records from the `products` table     | [View Task 1](#task-1)                  |
+| Task 2      | Sort records from the `products` table by name     | [View Task 2](#task-2)                  |
+| Task 3      | Sort `courier_actions` by multiple criteria         | [View Task 3](#task-3)                  |
+| Task 4      | Identify the 5 most expensive products              | [View Task 4](#task-4)                  |
+| Task 5      | Rename columns in the previous query                | [View Task 5](#task-5)                  |
+| Task 6      | Find the product with the longest name              | [View Task 6](#task-6)                  |
+| Task 7      | Extract the first word of product names              | [View Task 7](#task-7)                  |
+| Task 8      | Change price column to VARCHAR                        | [View Task 8](#task-8)                  |
+| Task 9      | Format order information                              | [View Task 9](#task-9)                  |
+| Task 10     | Retrieve courier IDs and birth years                 | [View Task 10](#task-10)                |
+| Task 11     | Use COALESCE for birth years                         | [View Task 11](#task-11)                |
+| Task 12     | Increase product prices by 5%                        | [View Task 12](#task-12)                |
+| Task 13     | Increase prices with rounding                         | [View Task 13](#task-13)                |
+| Task 14     | Conditional price increase for certain products      | [View Task 14](#task-14)                |
+| Task 15     | Calculate VAT and price before tax                   | [View Task 15](#task-15)                |
+
+
 ## Task 1
 ### Description:
 Retrieve all records from the `products` table.
