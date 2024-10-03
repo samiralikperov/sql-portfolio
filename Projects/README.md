@@ -7,8 +7,8 @@ Feel free to explore the projects and see how SQL can be utilized in different s
 
 | Project             | Additional information                              | Link                                         |
 |---------------------|-----------------------------------------------------|----------------------------------------------|
-|                     | Basic SQL Queries                                   | [View](sql_simulator_basic_sql_queries.md)   |
-|                     | Data Filtering                                      | [View](sql_simulator_data_filtering.md)      |
+|                     | Basic SQL Queries                                   | [View](Projects/sql_simulator_basic_sql_queries.md)   |
+|                     | Data Filtering                                      | [View](Projects/ssql_simulator_data_filtering.md)      |
 |                     | Data aggregation                                    |                    soon                      |
 | 1 -  SQL-Exercises  | Data grouping                                       |                    soon                      |
 |                     | Subqueries                                          |                    soon                      |
