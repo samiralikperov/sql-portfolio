@@ -139,13 +139,45 @@ ORDER BY name;
 This query selects the name and price fields from the products table. It uses the SPLIT_PART function to extract the first word from the name column, and then applies the UPPER function to convert it to uppercase, aliasing it as first_word. The results are sorted in ascending order based on the original product names in the name column.
 
 
+## Task 8
+
+### Description:
+Change the data type of the `price` column in the `products` table to `VARCHAR`. Display the columns with product names, the original price format, and the price in the new `VARCHAR` format. Name the new column with the price in `VARCHAR` format as `price_char`. Sort the results by the original product names in ascending order. There should be no limit on the number of records displayed.
+
+### Resulting Table Fields:
+- **name**
+- **price**
+- **price_char**
+
+### SQL Query:
+```sql
+SELECT name,
+       price,
+       CAST(price AS VARCHAR) AS price_char
+FROM   products
+ORDER BY name;
+```
+### Explanation:
+This query selects the name and price fields from the products table. It uses the CAST function to convert the price column from its original data type to VARCHAR, creating a new column named price_char. The results are sorted in ascending order based on the original product names in the name column, and there is no limit on the number of records displayed.
 
 
 
+## Task 9
 
-
-
-
+### Description:
+For the first 200 records from the `orders` table, output the information in the following format (pay attention to the spaces):
+**Order № [order_id] created [creation_time]**
+Name the resulting column as `order_info`.
+### Resulting Table Fields:
+- **order_info**
+### SQL Query:
+```sql
+SELECT CONCAT('Заказ № ', order_id, ' создан ', DATE(creation_time)) AS order_info
+FROM   orders
+LIMIT 200;
+```
+## Explanation:
+This query selects the order_id and creation_time fields from the orders table. It uses the CONCAT function to combine the static text "Заказ №", the order_id, the static text "создан", and the formatted creation_time (converted to date) into a single string, which is aliased as order_info. The LIMIT 200 clause restricts the output to the first 200 records.
 
 
 
