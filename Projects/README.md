@@ -8,5 +8,10 @@ Feel free to explore the projects and see how SQL can be utilized in different s
 | Merged Column       | Additional information                              | Link                                         |
 |---------------------|-----------------------------------------------------|----------------------------------------------|
 |                     | Basic SQL Queries                                   | [View](sql_simulator_basic_sql_queries.md)   |
-| 1 -  SQL-Exercises  | Data Filtering                                      | [View](sql_simulator_data_filtering.md)      |
-|                     | 3                                                   | [View](sql_simulator_data_filtering.md)      |
+|                     | Data Filtering                                      | [View](sql_simulator_data_filtering.md)      |
+|                     | Data aggregation                                    |                    soon                      |
+| 1 -  SQL-Exercises  | Data grouping                                       |                    soon                      |
+|                     | Subqueries                                          |                    soon                      |
+|                     | JOIN                                                |                    soon                      |
+|                     | Window functions                                    |                    soon                      |
+
