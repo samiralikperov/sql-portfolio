@@ -5,7 +5,7 @@ This repository serves as a showcase for my SQL skills and includes a diverse ra
 Feel free to explore the projects and see how SQL can be utilized in different scenarios!
 
 
-| Merged Column       | Additional information                              | Link                                         |
+| Project             | Additional information                              | Link                                         |
 |---------------------|-----------------------------------------------------|----------------------------------------------|
 |                     | Basic SQL Queries                                   | [View](sql_simulator_basic_sql_queries.md)   |
 |                     | Data Filtering                                      | [View](sql_simulator_data_filtering.md)      |
