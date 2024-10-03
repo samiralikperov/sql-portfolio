@@ -8,6 +8,8 @@ Feel free to explore the solutions and insights I gained through this learning p
 | Group of Tasks   |Link                                                                          |
 |------------------|------------------------------------------------------------------------------|
 | Basic SQL Queries| [View](sql_simulator_basic_sql_queries.md) |
+| Data Filtering| [View](sql_simulator_data_filtering.md) |
+
 
 # The diagram below shows the relationships between the tables:
 ![2023_01_24_214337_negate](https://github.com/user-attachments/assets/67e1bf10-e3d4-4aa9-bb3e-37a65d3d729b)
