@@ -4,3 +4,9 @@ Welcome to the Projects folder! Here, you will find a collection of various SQL 
 This repository serves as a showcase for my SQL skills and includes a diverse range of tasks, exercises, and applications related to SQL.  
 Feel free to explore the projects and see how SQL can be utilized in different scenarios!
 
+
+| Merged Column       | Additional information                              | Link                                         |
+|---------------------|-----------------------------------------------------|----------------------------------------------|
+|                     | Basic SQL Queries                                   | [View](sql_simulator_basic_sql_queries.md)   |
+| 1 -  SQL-Exercises  | Data Filtering                                      | [View](sql_simulator_data_filtering.md)      |
+|                     | 3                                                   | [View](sql_simulator_data_filtering.md)      |
