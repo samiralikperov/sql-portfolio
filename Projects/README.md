@@ -5,7 +5,7 @@ This repository serves as a showcase for my SQL skills and includes a diverse ra
 Feel free to explore the projects and see how SQL can be utilized in different scenarios!
 
 
-| Project             | Additional information | Link                                                         |Portfolio Link                                    |
+| Project             | Additional information | GitHub Link                                                  |Portfolio Link                                    |
 |---------------------|------------------------|--------------------------------------------------------------|--------------------------------------------------|                         
 |                     | Basic SQL Queries      | [View](./SQL-Exercises/sql_simulator_basic_sql_queries.md)   |                                                  |
 |                     | Data Filtering         | [View](./SQL-Exercises/sql_simulator_data_filtering.md)      |                                                  |
