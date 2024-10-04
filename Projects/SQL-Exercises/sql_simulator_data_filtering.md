@@ -109,3 +109,109 @@ ORDER BY product_id;
 This query retrieves the product_id and name from the products table, filtering results to include products whose names start with "чай" or have a length of five characters. The results are sorted by product_id in ascending order.
 
 
+
+## Task 6
+### Description:
+Select all products from the `products` table that contain the sequence of characters "чай" (tea) in their names. Output the product ID and its name. Sort the result by product ID in ascending order.
+### Resulting Table Fields:
+- **product_id**
+- **name**
+### SQL Query:
+```sql
+SELECT product_id,
+       name
+FROM   products
+WHERE  name LIKE '%чай%'
+ORDER BY product_id;
+```
+### Explanation:
+This query retrieves the product_id and name from the products table, filtering results to include only products with "чай" in their names. The results are sorted by product_id in ascending order.
+
+## Task 7
+### Description:
+Select the IDs and names of products from the products table where the names start with the letter "с" and consist of only one word. Sort the result by product ID in ascending order.
+### Resulting Table Fields:
+product_id
+name
+### SQL Query:
+```sql
+SELECT product_id,
+       name
+FROM   products
+WHERE  name NOT LIKE '% %'
+   AND name LIKE 'с%'
+ORDER BY product_id;
+```
+### Explanation:
+This query retrieves the product_id and name from the products table, filtering results to include only products whose names start with "с" and do not contain spaces (indicating they consist of one word). The results are sorted by product_id in ascending order.
+
+## Task 8
+### Description:
+Compose an SQL query that selects all teas from the products table priced above 60 rubles and calculates the price with a 25% discount. The discount should be displayed as text in a separate column formatted as "25%". Name the columns for the discount and the new price as discount and new_price, respectively. Additionally, exclude "чайный гриб" (tea mushroom) from the results. Sort the results by product ID in ascending order.
+### Resulting Table Fields:
+product_id
+name
+price
+discount
+new_price
+### SQL Query:
+``` sql
+SELECT product_id,
+       name,
+       price,
+       '25%' AS discount,
+       price * 0.75 AS new_price
+FROM   products
+WHERE  name LIKE '%чай%'
+   AND price > 60
+   AND name NOT LIKE '%чайный гриб%'
+ORDER BY product_id;
+```
+### Explanation:
+This query selects the product_id, name, and price from the products table where the name contains "чай" and the price exceeds 60 rubles. It adds a text column for the discount set to "25%" and calculates the new price by applying the 25% discount. The results are sorted by product_id in ascending order.
+
+## Task 9
+### Description:
+From the user_actions table, output all information about user actions for users with IDs 170, 200, and 230 during the period from August 25 to September 4, 2022, inclusive. Sort the results by order ID in descending order (from the most recent actions to the earliest).
+
+### Resulting Table Fields:
+user_id
+order_id
+action
+time
+### SQL Query:
+```sql
+SELECT user_id,
+       order_id,
+       action,
+       time
+FROM   user_actions
+WHERE  user_id IN (170, 200, 230)
+   AND time >= '2022-08-25'
+   AND time <= '2022-09-04'
+ORDER BY order_id DESC;
+```
+### Explanation:
+This query retrieves all fields from the user_actions table for users with IDs 170, 200, and 230, filtering results by the specified date range. The results are sorted by order_id in descending order to show the most recent actions first.
+
+## Task 10
+### Description:
+Write an SQL query to select all information about couriers from the couriers table where their birth date is not specified (i.e., NULL). Sort the results by courier ID in ascending order.
+
+### Resulting Table Fields:
+birth_date
+courier_id
+sex
+### SQL Query:
+```sql
+SELECT birth_date,
+       courier_id,
+       sex
+FROM   couriers
+WHERE  birth_date IS NULL
+ORDER BY courier_id;
+```
+### Explanation:
+This query selects the birth_date, courier_id, and sex fields from the couriers table, filtering results to include only those couriers whose birth date is NULL. The results are sorted by courier_id in ascending order.
+
+
