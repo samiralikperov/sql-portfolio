@@ -215,3 +215,136 @@ ORDER BY courier_id;
 This query selects the birth_date, courier_id, and sex fields from the couriers table, filtering results to include only those couriers whose birth date is NULL. The results are sorted by courier_id in ascending order.
 
 
+## Task 11
+
+### Description:
+Determine the ID and birth dates of the 50 youngest male users from the `users` table. Do not include users who do not have a specified birth date.
+
+### Resulting Table Fields:
+- **user_id**
+- **birth_date**
+
+### SQL Query:
+```sql
+SELECT user_id,
+       birth_date
+FROM   users
+WHERE  sex = 'male'
+   AND birth_date IS NOT NULL
+ORDER BY birth_date DESC
+LIMIT 50;
+```
+### Explanation:
+This query retrieves the user_id and birth_date of male users from the users table, filtering out those with a NULL birth date. It sorts the results in descending order by birth_date, showing the youngest users first, and limits the output to the top 50 entries.
+
+## Task 12
+### Description:
+Write an SQL query to the courier_actions table to find the ID and delivery time of the last 10 orders delivered by the courier with ID 100.
+### Resulting Table Fields:
+order_id
+time
+### SQL Query:
+```sql
+SELECT order_id,
+       time
+FROM   courier_actions
+WHERE  courier_id = 100
+   AND action = 'deliver_order'
+ORDER BY time DESC
+LIMIT 10;
+```
+### Explanation:
+This query selects the order_id and time from the courier_actions table where the courier_id is 100 and the action is 'deliver_order'. The results are sorted in descending order by time, returning the most recent deliveries first, limited to the last 10 orders.
+
+## Task 13
+### Description:
+Select the IDs of all orders made by users in August 2022 from the user_actions table. Sort the results by order ID in ascending order.
+
+### Resulting Table Fields:
+order_id
+### SQL Query:
+```sql
+SELECT order_id
+FROM   user_actions
+WHERE  action = 'create_order'
+   AND DATE_PART('month', time) = 8
+   AND DATE_PART('year', time) = 2022
+ORDER BY order_id;
+```
+### Explanation:
+This query retrieves the order_id from the user_actions table, filtering results to include only actions where the action is 'create_order' during August 2022. The results are sorted in ascending order by order_id.
+
+## Task 14
+### Description:
+From the couriers table, select the IDs of all couriers born between 1990 and 1995, inclusive. Sort the results by courier ID in ascending order.
+
+### Resulting Table Fields:
+courier_id
+### SQL Query:
+```sql
+SELECT courier_id
+FROM   couriers
+WHERE  DATE_PART('year', birth_date) BETWEEN 1990 AND 1995
+ORDER BY courier_id;
+```
+### Explanation:
+This query selects the courier_id from the couriers table, filtering for couriers whose birth year falls between 1990 and 1995. The results are sorted in ascending order by courier_id.
+
+## Task 15
+### Description:
+From the user_actions table, retrieve information about all order cancellations made by users during August 2022 on Wednesdays between 12:00 and 15:59. Sort the results by order ID in descending order.
+
+### Resulting Table Fields:
+user_id
+order_id
+action
+time
+### SQL Query:
+```sql
+SELECT user_id,
+       order_id,
+       action,
+       time
+FROM   user_actions
+WHERE  action = 'cancel_order'
+   AND DATE_PART('dow', time) = 3
+   AND DATE_PART('month', time) = 8
+   AND DATE_PART('hour', time) BETWEEN 12 AND 15
+   AND DATE_PART('year', time) = 2022
+ORDER BY order_id DESC;
+```
+### Explanation:
+This query retrieves the user_id, order_id, action, and time from the user_actions table, filtering results for cancellations where the action is 'cancel_order', the day of the week is Wednesday (3), and the date falls within August 2022, specifically between 12:00 and 15:59. The results are sorted in descending order by order_id.
+
+## Task 16
+### Description:
+As in the previous task, calculate the VAT for each product in the products table and determine the price excluding VAT. However, for products in a specified list, the tax rate is 10%. For all other products, the VAT remains at 20%. Output all information about the products, including the tax amount and the price before tax. Name the columns for the tax amount and the price before tax as tax and price_before_tax, respectively. Round the values in these columns to two decimal places. Sort the results first by the price before tax in descending order, then by product ID in ascending order.
+
+### Resulting Table Fields:
+product_id
+name
+price
+tax
+price_before_tax
+### SQL Query:
+```sql
+SELECT product_id,
+       name,
+       price,
+       CASE 
+           WHEN name IN ('сахар', 'сухарики', 'сушки', 'семечки', 'масло льняное', 'виноград', 'масло оливковое', 'арбуз', 'батон', 'йогурт', 'сливки', 'гречка', 'овсянка', 'макароны', 'баранина', 'апельсины', 'бублики', 'хлеб', 'горох', 'сметана', 'рыба копченая', 'мука', 'шпроты', 'сосиски', 'свинина', 'рис', 'масло кунжутное', 'сгущенка', 'ананас', 'говядина', 'соль', 'рыба вяленая', 'масло подсолнечное', 'яблоки', 'груши', 'лепешка', 'молоко', 'курица', 'лаваш', 'вафли', 'мандарины') 
+           THEN ROUND(price / 110 * 10, 2)
+           ELSE ROUND(price / 120 * 20, 2) 
+       END AS tax,
+       CASE 
+           WHEN name IN ('сахар', 'сухарики', 'сушки', 'семечки', 'масло льняное', 'виноград', 'масло оливковое', 'арбуз', 'батон', 'йогурт', 'сливки', 'гречка', 'овсянка', 'макароны', 'баранина', 'апельсины', 'бублики', 'хлеб', 'горох', 'сметана', 'рыба копченая', 'мука', 'шпроты', 'сосиски', 'свинина', 'рис', 'масло кунжутное', 'сгущенка', 'ананас', 'говядина', 'соль', 'рыба вяленая', 'масло подсолнечное', 'яблоки', 'груши', 'лепешка', 'молоко', 'курица', 'лаваш', 'вафли', 'мандарины') 
+           THEN ROUND(price - price / 110 * 10, 2)
+           ELSE ROUND(price - price / 120 * 20, 2) 
+       END AS price_before_tax
+FROM   products
+ORDER BY price_before_tax DESC, product_id;
+```
+### Explanation:
+This query selects the product_id, name, and price from the products table, calculating the VAT based on different rates for specified products (10%) and all others (20%). It uses the CASE statement to determine the appropriate tax and calculates the price before tax. The values are rounded to two decimal places. The results are sorted first by price_before_tax in descending order and then by product_id in ascending order.
+
+
