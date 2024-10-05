@@ -198,3 +198,132 @@ FROM   products;
 ```
 ### Explanation:
 This query calculates the total cost of the specified order by using a CASE statement to multiply the prices of croutons, chips, and the energy drink by their respective quantities. The total sum is aliased as order_price, representing the total cost of the order.
+
+
+
+
+
+
+
+
+
+
+## Task 12
+
+### Description:
+Calculate the average price of products in the `products` table whose names contain the words "чай" (tea) or "кофе" (coffee). Exclude products that contain "иван-чай" (Ivan tea) or "чайный гриб" (tea mushroom) from the calculation. Round the average price to two decimal places. Name the resulting column as `avg_price`.
+
+### Resulting Table Fields:
+- **avg_price**
+
+### SQL Query:
+```sql
+SELECT ROUND(AVG(price), 2) AS avg_price
+FROM   products
+WHERE  (name LIKE '%чай%'
+    OR name LIKE '%кофе%')
+   AND name NOT LIKE '%иван-чай%'
+   AND name NOT LIKE '%чайный гриб%';
+```
+### Explanation:
+This query calculates the average price of products in the products table that have "чай" or "кофе" in their names. It excludes those that contain "иван-чай" or "чайный гриб". The average price is rounded to two decimal places and is aliased as avg_price.
+
+
+
+
+
+## Task 13
+### Description:
+Using the AGE function, calculate the age difference between the oldest and youngest male users in the users table. Express the age difference in years, months, and days, converting it to VARCHAR. Name the column with the calculated value as age_diff.
+### Resulting Table Fields:
+age_diff
+### SQL Query:
+```sql
+SELECT AGE(MAX(birth_date), MIN(birth_date))::VARCHAR AS age_diff
+FROM   users
+WHERE  sex = 'male';
+```
+### Explanation:
+This query calculates the age difference between the oldest and youngest male users by using the AGE function on the maximum and minimum birth_date. The result is converted to a string format and aliased as age_diff.
+
+
+
+
+
+
+
+## Task 14
+### Description:
+Calculate the average number of products in orders from the orders table that users placed on weekends (Saturday and Sunday) throughout the service's operation. Round the resulting value to two decimal places. Name the column as avg_order_size.
+### Resulting Table Fields:
+avg_order_size
+### SQL Query:
+```sql
+SELECT ROUND(AVG(ARRAY_LENGTH(product_ids, 1)), 2) AS avg_order_size
+FROM   orders
+WHERE  DATE_PART('dow', creation_time) IN (6, 0);
+```
+### Explanation:
+This query calculates the average number of products in orders placed on weekends by using the ARRAY_LENGTH function. It filters results to include only orders placed on Saturday (6) and Sunday (0). The average is rounded to two decimal places and aliased as avg_order_size.
+
+
+
+
+
+## Task 15
+### Description:
+Based on the data in the user_actions table, count the number of unique service users, the number of unique orders, and divide one by the other to find out how many orders correspond to one user. Include all three values in the resulting table, naming the columns as unique_users, unique_orders, and orders_per_user. Round the number of orders per user to two decimal places.
+### Resulting Table Fields:
+unique_users
+unique_orders
+orders_per_user
+### SQL Query:
+```sql
+SELECT COUNT(DISTINCT user_id) AS unique_users,
+       COUNT(DISTINCT order_id) AS unique_orders,
+       ROUND(COUNT(DISTINCT order_id)::DECIMAL / COUNT(DISTINCT user_id), 2) AS orders_per_user
+FROM   user_actions;
+```
+### Explanation:
+This query counts unique user_id values to get the total number of users and unique order_id values for the total number of orders. It then calculates the average number of orders per user, rounding the result to two decimal places. The columns are aliased as unique_users, unique_orders, and orders_per_user.
+
+
+
+
+
+## Task 16
+### Description:
+Count how many users have never canceled their orders. Subtract the number of unique users who have canceled at least once from the total number of unique users. Consider the necessary condition in the FILTER to get the correct result. Name the resulting column as users_count.
+### Resulting Table Fields:
+users_count
+### SQL Query:
+```sql
+Copy code
+SELECT COUNT(DISTINCT user_id) - COUNT(DISTINCT user_id) FILTER (WHERE action = 'cancel_order') AS users_count
+FROM   user_actions;
+```
+### Explanation:
+This query counts the total number of unique users in the user_actions table and subtracts the count of unique users who have canceled at least one order, using the FILTER clause. The result is aliased as users_count, indicating the number of users who have never canceled an order.
+
+
+
+
+
+## Task 17
+### Description:
+Count the total number of orders in the orders table, the number of orders with five or more products, and find the share of orders with five or more products in the total number of orders. Name the resulting columns as orders, large_orders, and large_orders_share. Round the share of orders to two decimal places.
+### Resulting Table Fields:
+orders
+large_orders
+large_orders_share
+### SQL Query:
+```sql
+SELECT COUNT(order_id) AS orders,
+       COUNT(order_id) FILTER (WHERE ARRAY_LENGTH(product_ids, 1) >= 5) AS large_orders,
+       ROUND(COUNT(order_id) FILTER (WHERE ARRAY_LENGTH(product_ids, 1) >= 5)::DECIMAL / COUNT(order_id), 2) AS large_orders_share
+FROM   orders;
+```
+### Explanation:
+This query counts the total number of order_id records in the orders table and the number of orders with five or more products using the FILTER clause. It calculates the share of large orders and rounds the result to two decimal places. The columns are aliased as orders, large_orders, and large_orders_share.
+
+
