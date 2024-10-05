@@ -10,6 +10,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 | Basic SQL Queries| [View](sql_simulator_basic_sql_queries.md) |
 | Data Filtering| [View](sql_simulator_data_filtering.md) |
 | Data Aggregation| [View](sql_simulator_data_aggregation.md) |
+| Data grouping| [View](sql_simulator_data_grouping.md) |
 
 
 # The diagram below shows the relationships between the tables:
