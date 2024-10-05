@@ -9,8 +9,10 @@ Feel free to explore the projects and see how SQL can be utilized in different s
 |---------------------|------------------------|--------------------------------------------------------------|--------------------------------------------------|                         
 |                     | Basic SQL Queries      | [View](./SQL-Exercises/sql_simulator_basic_sql_queries.md)   |                                                  |
 |                     | Data Filtering         | [View](./SQL-Exercises/sql_simulator_data_filtering.md)      |                                                  |
-|                     | Data aggregation       |                    soon                                      |                                                  |
-| 1 -  SQL-Exercises  | Data grouping          |                    soon                                      |                                                  |
+|                     | Data Aggregation       | [View](./SQL-Exercises/sql_simulator_data_aggregation.md)    |                                                  |
+| 1 -  SQL-Exercises  | Data Grouping          | [View](./SQL-Exercises/sql_simulator_data_grouping.md)       |                                                  |
 |                     | Subqueries             |                    soon                                      |                                                  |
 |                     | JOIN                   |                    soon                                      |                                                  |
 |                     | Window functions       |                    soon                                      |                                                  |
+
+
