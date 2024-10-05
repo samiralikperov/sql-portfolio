@@ -27,8 +27,6 @@
 
 # SQL Tasks
 
-# SQL Tasks
-
 ## Task 1
 
 ### Description:
