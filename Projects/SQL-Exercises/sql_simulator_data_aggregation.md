@@ -4,7 +4,24 @@
 
 | Task Number | Task Description                                     | Link                                     |
 |-------------|-----------------------------------------------------|------------------------------------------|
-| Task 1      | Select products where the price does not exceed 100 rubles | [View Task 1](#task-1)                  |
+| Task 1      | Select IDs of all unique users from the user_actions table | [View Task 1](#task-1)                  |
+| Task 2      | Select unique pairs of courier_id and order_id from courier_actions | [View Task 2](#task-2)                  |
+| Task 3      | Calculate the maximum and minimum prices of products | [View Task 3](#task-3)                  |
+| Task 4      | Count total records and non-null birth dates in users table | [View Task 4](#task-4)                  |
+| Task 5      | Count total and unique user IDs in user_actions table | [View Task 5](#task-5)                  |
+| Task 6      | Count the number of female couriers in the couriers table | [View Task 6](#task-6)                  |
+| Task 7      | Calculate the first and last delivery times in courier_actions | [View Task 7](#task-7)                  |
+| Task 8      | Calculate the total cost of an order of specific products | [View Task 8](#task-8)                  |
+| Task 9      | Count the number of orders with nine or more products | [View Task 9](#task-9)                  |
+| Task 10     | Calculate the age difference between oldest and youngest male users | [View Task 10](#task-10)                |
+| Task 11     | Calculate the total cost of an order with specified quantities | [View Task 11](#task-11)                |
+| Task 12     | Calculate the average price of products containing "чай" or "кофе" | [View Task 12](#task-12)                |
+| Task 13     | Calculate the age difference between oldest and youngest male users | [View Task 13](#task-13)                |
+| Task 14     | Calculate average order size on weekends | [View Task 14](#task-14)                |
+| Task 15     | Calculate unique users and orders per user | [View Task 15](#task-15)                |
+| Task 16     | Count users who never canceled their orders | [View Task 16](#task-16)                |
+| Task 17     | Count total orders and share of large orders | [View Task 17](#task-17)                |
+
 
 
 
