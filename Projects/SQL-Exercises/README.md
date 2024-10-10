@@ -12,6 +12,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 | Data Aggregation| [View](sql_simulator_data_aggregation.md) |
 | Data Grouping| [View](sql_simulator_data_grouping.md) |
 | Subqueries| [View](sql_simulator_subqueries.md) |
+| Join| [View](sql_simulator_join.md)|
 
 
 # The diagram below shows the relationships between the tables:
