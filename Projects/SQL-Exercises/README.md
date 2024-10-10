@@ -13,6 +13,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 | Data Grouping| [View](sql_simulator_data_grouping.md) |
 | Subqueries| [View](sql_simulator_subqueries.md) |
 | Join| [View](sql_simulator_join.md)|
+| Window Functions| [View](sql_simulator_window_functions.md)|
 
 
 # The diagram below shows the relationships between the tables:
