@@ -27,7 +27,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 |-------------|----------------|--------------------------------------------------------------------|
 | user_id     | INT            | User ID                                                           |
 | order_id    | INT            | Order ID                                                          |
-| action      | VARCHAR(50)    | User action with the order; 'create_order' вАФ creating an order, 'cancel_order' вАФ canceling an order |
+| action      | VARCHAR(50)    | User action with the order; 'create_order' в creating an order, 'cancel_order' в canceling an order |
 | time        | TIMESTAMP      | Time of the action                                                |
 
 ## courier_actions - Courier actions with orders.
@@ -36,7 +36,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 |-------------|----------------|--------------------------------------------------------------------|
 | courier_id  | INT            | Courier ID                                                        |
 | order_id    | INT            | Order ID                                                          |
-| action      | VARCHAR(50)    | Courier action with the order; 'accept_order' вАФ accepting an order, 'deliver_order' вАФ delivering an order |
+| action      | VARCHAR(50)    | Courier action with the order; 'accept_order' в accepting an order, 'deliver_order' в delivering an order |
 | time        | TIMESTAMP      | Time of the action                                                |
 
 ## orders - Information about orders.
@@ -53,7 +53,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 |-------------|----------------|--------------------------------------------------------------|
 | user_id     | INT            | User ID                                                   |
 | birth_date  | DATE           | Date of birth                                             |
-| sex         | VARCHAR(50)    | Gender; 'male' вАФ male, 'female' вАФ female                  |
+| sex         | VARCHAR(50)    | Gender; 'male' в male, 'female' в female                  |
 
 ## couriers - Information about couriers.
 
@@ -61,7 +61,7 @@ Feel free to explore the solutions and insights I gained through this learning p
 |-------------|----------------|--------------------------------------------------------------|
 | courier_id  | INT            | Courier ID                                                |
 | birth_date  | DATE           | Date of birth                                            |
-| sex         | VARCHAR(50)    | Gender; 'male' вАФ male, 'female' вАФ female                  |
+| sex         | VARCHAR(50)    | Gender; 'male' в male, 'female' в female                  |
 
 ## products - Information about products delivered by the service.
 
