@@ -9,23 +9,23 @@
 | Task 3      | LEFT JOIN user_actions and users, select user IDs         | [View Task 3](#task-3)                  |
 | Task 4      | Count unique user IDs from the LEFT JOIN                   | [View Task 4](#task-4)                  |
 | Task 5      | Filter NULL values in RIGHT JOIN and sort results          | [View Task 5](#task-5)                  |
-| Task 6      | FULL JOIN user_actions and users, count unique birth dates | [View Task 6](#task-6)                  |
-| Task 7      | Union unique birth dates from users and couriers           | [View Task 7](#task-7)                  |
-| Task 8      | CROSS JOIN first 100 users with all product names         | [View Task 8](#task-8)                  |
-| Task 9      | JOIN user_actions and orders, select user and order IDs    | [View Task 9](#task-9)                  |
-| Task 10     | Filter unique non-canceled orders from the JOIN            | [View Task 10](#task-10)                |
-| Task 11     | Calculate average items per user from non-canceled orders  | [View Task 11](#task-11)                |
-| Task 12     | Unnest product IDs in orders and join with products        | [View Task 12](#task-12)                |
-| Task 13     | Calculate total order price from previous query            | [View Task 13](#task-13)                |
-| Task 14     | Combine previous queries to get average order metrics      | [View Task 14](#task-14)                |
-| Task 15     | Calculate daily revenue from orders                        | [View Task 15](#task-15)                |
-| Task 16     | Find top 10 most popular items delivered in September 2022 | [View Task 16](#task-16)                |
-| Task 17     | Calculate average cancel rate by gender                   | [View Task 17](#task-17)                |
-| Task 18     | Determine orders that took longest to deliver              | [View Task 18](#task-18)                |
-| Task 19     | Replace product IDs with names in orders                   | [View Task 19](#task-19)                |
-| Task 20     | Find largest orders and their user and courier IDs        | [View Task 20](#task-20)                |
-| Task 21     | Identify frequently purchased item pairs                   | [View Task 21](#task-21)                |
-| Task 22     | Calculate average age of users and couriers from orders    | [View Task 22](#task-22)                |
+| Task 6      | Use FULL JOIN to get unique dates and counts               | [View Task 6](#task-6)                  |
+| Task 7      | Count unique dates from users and couriers                 | [View Task 7](#task-7)                  |
+| Task 8      | Select first 100 users and CROSS JOIN with products        | [View Task 8](#task-8)                  |
+| Task 9      | Join user_actions and orders, display order details        | [View Task 9](#task-9)                  |
+| Task 10     | Calculate unique non-cancelled orders for users            | [View Task 10](#task-10)                |
+| Task 11     | Calculate average cancel_rate for each user gender         | [View Task 11](#task-11)                |
+| Task 12     | Calculate daily revenue, excluding cancelled orders         | [View Task 12](#task-12)                |
+| Task 13     | Identify top 10 popular products delivered in September 2022 | [View Task 13](#task-13)              |
+| Task 14     | Calculate order metrics for users                           | [View Task 14](#task-14)                |
+| Task 15     | Replace product IDs with names in orders                    | [View Task 15](#task-15)                |
+| Task 16     | Find largest orders and user/courier information            | [View Task 16](#task-16)                |
+| Task 17     | Identify frequently purchased product pairs                 | [View Task 17](#task-17)                |
+| Task 18     | Determine which product pairs are purchased together often  | [View Task 18](#task-18)                |
+| Task 19     | Identify who ordered and delivered the largest orders       | [View Task 19](#task-19)                |
+| Task 20     | Analyze pairs of products that are frequently purchased     | [View Task 20](#task-20)                |
+| Task 21     | Count product pairs purchased together frequently           | [View Task 21](#task-21)                |
+
 
 
 ## Task 1
@@ -51,7 +51,8 @@ This query combines the user_actions and users tables using a JOIN on the user_i
 
 ## Task 2
 ### Description:
-Now, try rewriting the query from the previous task to count the unique IDs in the combined table. Again, join the tables, but this time count the unique user_id from one of the ID columns. Output this count as a result, naming the column users_count.
+Join the user_actions and users tables on the user_id key. Instead of retrieving all user IDs, count the unique user_id values from one of the columns. Output this count as users_count.
+
 ### SQL Query:
 ```sql
 SELECT COUNT(DISTINCT a.user_id) AS users_count
@@ -59,11 +60,11 @@ FROM   user_actions a
 JOIN   users b USING (user_id);
 ```
 ### Explanation:
-In this query, we join the two tables again, but instead of selecting columns, we count unique user_id values from the user_actions table. This helps determine how many unique users have taken actions.
+This query combines the user_actions and users tables using a JOIN on the user_id column. It counts the distinct user IDs from the left table (user_actions) and outputs the result as users_count, providing the total number of unique users in the combined dataset.
 
 ## Task 3
 ### Description:
-Using a LEFT JOIN, combine the user_actions and users tables on the user_id key. Note the order of the tables — user_actions on the left and users on the right. Include two columns with user_id from both tables, naming them user_id_left and user_id_right. Also include order_id, time, action, sex, birth_date. Sort the resulting table by ascending user ID from the left table.
+Use a LEFT JOIN to combine the user_actions and users tables on the user_id key. Note the order of the tables: the left table is user_actions and the right table is users. Include two columns with user_id from both tables, naming them user_id_left and user_id_right. Also, include the columns order_id, time, action, sex, birth_date. Sort the resulting table by ascending user ID from the left table.
 
 ### SQL Query:
 ```sql
@@ -74,32 +75,33 @@ SELECT a.user_id AS user_id_left,
        action,
        sex,
        birth_date
-FROM   user_actions a 
+FROM   user_actions a
 LEFT JOIN users b USING (user_id)
 ORDER BY user_id_left;
 ```
 ### Explanation:
-This query uses a LEFT JOIN to combine user_actions and users, ensuring all records from user_actions are included, even if there’s no match in users. This lets us see actions taken by users, including those without corresponding entries in the users table.
+This query combines the user_actions and users tables using a LEFT JOIN on the user_id column. It retrieves user IDs from both tables, renaming them for clarity, and sorts the results by the left table's user_id, ensuring that all entries from user_actions are included, even if there are no matching entries in the users table.
 
 ## Task 4
-### Description:
-Now, try to rewrite the query from the previous task to count the unique user_id values from the left table user_actions. Output this count as a result, naming the column users_count.
+Description:
+Modify the previous query to count the unique user_id values from the left table (user_actions) after performing a LEFT JOIN with the users table. Output this count as users_count.
 
 ### SQL Query:
 ```sql
 SELECT COUNT(DISTINCT a.user_id) AS users_count
-FROM   user_actions a 
+FROM   user_actions a
 LEFT JOIN users b USING (user_id);
 ```
 ### Explanation:
-This query counts unique user_id values from the user_actions table after performing a LEFT JOIN. It helps verify how many distinct users have made actions recorded in user_actions.
+This query uses a LEFT JOIN to combine the user_actions and users tables on the user_id column. It counts the distinct user_id values from the left table (user_actions) and outputs the result as users_count, providing the total number of unique users from the user_actions table, regardless of whether they have corresponding entries in the users table.
 
 ## Task 5
 ### Description:
-Take the query from Task 3, where you joined the user_actions and users tables using a LEFT JOIN, and add a WHERE clause to exclude NULL values in the user_id column from the right table. Include all the same columns and sort the resulting table by ascending user ID from the left table.
+Take the previous query that combines the user_actions and users tables using a LEFT JOIN. Add a WHERE clause to exclude NULL values in the user_id column from the right table (users). Include all the same columns and sort the resulting table by ascending user ID from the left table.
 
 ### SQL Query:
 ```sql
+
 SELECT a.user_id AS user_id_left,
        b.user_id AS user_id_right,
        order_id,
@@ -107,24 +109,21 @@ SELECT a.user_id AS user_id_left,
        action,
        sex,
        birth_date
-FROM   user_actions a 
+FROM   user_actions a
 LEFT JOIN users b USING (user_id)
 WHERE  b.user_id IS NOT NULL
 ORDER BY user_id_left;
 ```
 ### Explanation:
-This query filters out entries with NULL user_id values from the users table after performing a LEFT JOIN. This gives us only those user actions that have matching user details in both tables.
-
-
-
+This query combines the user_actions and users tables using a LEFT JOIN on the user_id column. The WHERE clause filters out any rows where the user_id from the right table (users) is NULL, effectively converting the LEFT JOIN into an INNER JOIN for this case. It retrieves user IDs from both tables and sorts the results by the left table's user_id, ensuring only matching records are included in the final output.
 
 ## Task 6
-
 ### Description:
-Using a `FULL JOIN`, combine the two tables obtained from the previous queries (i.e., join the two subqueries). Do not modify them; simply add the necessary JOIN. Include two columns with `birth_date` from both tables, naming them `users_birth_date` and `couriers_birth_date`. Also, include the columns with user and courier counts — `users_count` and `couriers_count`. Sort the resulting table first by the `users_birth_date` column in ascending order, then by the `couriers_birth_date` column in ascending order.
+Use a FULL JOIN to combine the results of the two subqueries based on the birth_date key. Include two columns with birth_date from both tables, naming them users_birth_date and couriers_birth_date. Also, include the columns for the counts of users and couriers as users_count and couriers_count. Sort the resulting table first by users_birth_date in ascending order and then by couriers_birth_date in ascending order.
 
 ### SQL Query:
 ```sql
+
 SELECT a.birth_date AS users_birth_date,
        users_count,
        b.birth_date AS couriers_birth_date,
@@ -138,28 +137,21 @@ FULL JOIN (SELECT birth_date,
                    COUNT(courier_id) AS couriers_count
             FROM   couriers
             WHERE  birth_date IS NOT NULL
-            GROUP BY birth_date) b USING(birth_date)
+            GROUP BY birth_date) b 
+USING (birth_date)
 ORDER BY users_birth_date, couriers_birth_date;
 ```
 ### Explanation:
-This query combines the users and couriers tables using a FULL JOIN, which includes all records from both tables. It counts users and couriers by their birth dates and sorts the results based on the birth dates.
+This query performs a FULL JOIN on the results of two subqueries, which count the number of users and couriers grouped by birth_date. It retrieves the birth_date from both tables, naming them accordingly, and includes the counts of users and couriers. The results are sorted first by users_birth_date and then by couriers_birth_date, ensuring all records are displayed, even if one of the counts is NULL.
 
 ## Task 7
 ### Description:
-Combine the following two queries to create a set of unique dates from the users and couriers tables:
-
-SELECT birth_date
-FROM users
-WHERE birth_date IS NOT NULL;
-
-SELECT birth_date
-FROM couriers
-WHERE birth_date IS NOT NULL;
-Use a subquery to count the number of unique dates obtained after merging the sets. Name the column with the count dates_count.
+Combine the results of the two queries that retrieve non-null birth_date values from the users and couriers tables to create a set of unique dates. Then, count the number of unique dates in the resulting set. Name the output column dates_count.
 
 ### SQL Query:
 ```sql
-SELECT COUNT(birth_date) AS dates_count
+
+SELECT COUNT(DISTINCT birth_date) AS dates_count
 FROM   (SELECT birth_date
         FROM   users
         WHERE  birth_date IS NOT NULL
@@ -169,221 +161,187 @@ FROM   (SELECT birth_date
         WHERE  birth_date IS NOT NULL) t;
 ```
 ### Explanation:
-This query uses a UNION to combine unique birth dates from both the users and couriers tables, then counts how many unique dates exist in total.
+This query combines the results of two SELECT statements using the UNION operator, which ensures that only unique birth_date values are included from both the users and couriers tables. The outer query then counts the number of unique dates and outputs this count as dates_count. This approach effectively consolidates the non-null birth dates from both tables into a single result.
 
 ## Task 8
 ### Description:
-Select the first 100 users from the users table (simply select the first 100 records using a LIMIT) and perform a CROSS JOIN with all the item names from the products table. Output two columns — user ID and item name. Sort the result by ascending user ID, then by item name — also in ascending order.
+Select the IDs of the first 100 users from the users table using LIMIT. Then, perform a CROSS JOIN with all product names from the products table. Output two columns: the user ID and the product name. Sort the results first by ascending user ID and then by ascending product name.
 
 ### SQL Query:
 ```sql
 SELECT user_id,
        name
 FROM   (SELECT user_id
-        FROM   users 
+        FROM   users
         LIMIT 100) t1 
 CROSS JOIN (SELECT name
             FROM   products) t2
 ORDER BY user_id, name;
 ```
 ### Explanation:
-This query retrieves the first 100 users from the users table and combines them with every item from the products table using a CROSS JOIN, resulting in a Cartesian product of users and menu items.
+This query retrieves the IDs of the first 100 users from the users table. It then performs a CROSS JOIN with all product names from the products table, resulting in a combination of each of the selected user IDs with every product name. Finally, the results are sorted by user ID and product name in ascending order, ensuring a clear view of the user-product relationships.
 
 ## Task 9
 ### Description:
-Join the user_actions and orders tables on the order_id key. Output the user IDs and order IDs, as well as the list of items in each order. Sort the table by user ID in ascending order, then by order ID — also in ascending order. Include a LIMIT to output only the first 1000 rows of the resulting table.
+Join the user_actions and orders tables using the order_id key. Output the user ID, order ID, and the list of product IDs in the order. Sort the resulting table by user ID in ascending order and then by order ID in ascending order. Use a LIMIT clause to display only the first 1000 rows of the resulting table.
 
 ### SQL Query:
 ```sql
+
 SELECT user_id,
        order_id,
        product_ids
 FROM   user_actions
-LEFT JOIN orders USING(order_id)
-ORDER BY user_id, order_id 
+LEFT JOIN orders USING (order_id)
+ORDER BY user_id, order_id
 LIMIT 1000;
 ```
 ### Explanation:
-This query joins the user_actions and orders tables on order_id, providing details of which users made which orders and the products in those orders. It limits the results to the first 1000 records for ease of analysis.
+This query performs a LEFT JOIN between the user_actions and orders tables based on the order_id column. It retrieves the user ID, order ID, and product IDs for each order. The results are sorted first by user ID and then by order ID in ascending order, ensuring a clear view of the user-order relationships. The LIMIT 1000 clause restricts the output to the first 1000 rows, making the dataset more manageable for analysis.
 
 ## Task 10
 ### Description:
-Again, join the user_actions and orders tables, but now only keep unique, non-canceled orders (we did a similar query in the previous lesson). The other conditions remain the same: output user IDs and order IDs, as well as the list of items in each order. Sort the table by user ID in ascending order, then by order ID — also in ascending order. Include a LIMIT to output only the first 1000 rows of the resulting table.
+Using the previous query, calculate the average number of products ordered by each user. Output the user ID and the average order size, rounding the average to two decimal places. Name the output column avg_order_size. Sort the result by user ID in ascending order. Use a LIMIT clause to display only the first 1000 rows of the resulting table.
 
 ### SQL Query:
 ```sql
+
 SELECT user_id,
-       order_id,
-       product_ids
+       ROUND(AVG(ARRAY_LENGTH(product_ids, 1)), 2) AS avg_order_size
 FROM   (SELECT user_id,
                order_id
         FROM   user_actions
         WHERE  order_id NOT IN (SELECT order_id
                                 FROM   user_actions
-                                WHERE  action = 'cancel_order')) t
-LEFT JOIN orders USING(order_id)
-ORDER BY user_id, order_id 
+                                WHERE  action = 'cancel_order')) t1
+LEFT JOIN orders USING (order_id)
+GROUP BY user_id
+ORDER BY user_id
 LIMIT 1000;
 ```
 ### Explanation:
-This query filters out canceled orders from the user_actions table before joining it with the orders table, ensuring that only valid orders are considered. It helps in analyzing active user interactions with valid orders.
+This query takes the results of the previous query and calculates the average number of products per order for each user. It uses the ARRAY_LENGTH function to determine the number of products in each order, averages these values, and rounds the result to two decimal places. The final output includes the user ID and the rounded average order size, sorted by user ID in ascending order. The LIMIT 1000 clause restricts the output to the first 1000 rows, allowing for a concise overview of average order sizes by user.
 
 ## Task 11
 ### Description:
-Using the query from the previous task, calculate the average number of items each user orders. Output the user ID and the average number of items in the order. Round the average value to two decimal places. Name the column with the calculated values avg_order_size. Sort the results by ascending user ID. Include a LIMIT to output only the first 1000 rows of the resulting table.
+Using the previous query, calculate the total price for each order. Output the columns for order ID and the total order price, naming the price column order_price. Sort the results by order ID in ascending order. Use a LIMIT clause to display only the first 1000 rows of the resulting table.
 
 ### SQL Query:
 ```sql
-SELECT user_id,
-       ROUND(AVG(ARRAY_LENGTH(product_ids, 1)), 2) AS avg_order_size
-FROM   (SELECT user_id,
-               order_id
-        FROM   user_actions
-        WHERE  order_id NOT IN (SELECT order_id
-                                FROM   user_actions
-                                WHERE  action = 'cancel_order')) t1
-LEFT JOIN orders USING(order_id)
-GROUP BY user_id
-ORDER BY user_id 
+
+SELECT order_id,
+       SUM(price) AS order_price
+FROM   (SELECT order_id,
+               product_ids,
+               UNNEST(product_ids) AS product_id
+        FROM   orders) t1
+LEFT JOIN products USING (product_id)
+GROUP BY order_id
+ORDER BY order_id
 LIMIT 1000;
 ```
 ### Explanation:
-This query calculates the average order size for each user, considering only non-canceled orders. It aggregates the results to provide insights into how many items users typically order.
-
-
-
+This query builds on the previous one by calculating the total price for each order. It uses the SUM function to aggregate the prices of all products associated with each order ID. The results are grouped by order_id to ensure that the total price reflects the sum of all products in each order. The final output includes the order ID and the calculated total price (order_price), sorted by order ID in ascending order. The LIMIT 1000 clause ensures that only the first 1000 rows are returned, providing a clear view of order prices.
 
 ## Task 12
-
 ### Description:
-Using a `FULL JOIN`, combine the orders table with the previous query results. The two `birth_date` columns should be named `users_birth_date` and `couriers_birth_date`. Also include columns for the count of users and couriers — `users_count` and `couriers_count`. Sort the resulting table first by the `users_birth_date` and then by the `couriers_birth_date` in ascending order.
+First, apply the unnest function to the orders table to expand the product IDs into individual rows, naming the column product_id. Then, join this expanded table with the products table using the product_id key to add price information. Output the columns for order ID, product ID, and product price. Sort the resulting table first by ascending order ID and then by ascending product ID. Use a LIMIT clause to display only the first 1000 rows of the resulting table.
 
 ### SQL Query:
 ```sql
-SELECT a.birth_date AS users_birth_date,
-       users_count,
-       b.birth_date AS couriers_birth_date,
-       couriers_count
-FROM   (SELECT birth_date,
-               COUNT(user_id) AS users_count
-        FROM   users
-        WHERE  birth_date IS NOT NULL
-        GROUP BY birth_date) a 
-FULL JOIN (SELECT birth_date,
-                   COUNT(courier_id) AS couriers_count
-            FROM   couriers
-            WHERE  birth_date IS NOT NULL
-            GROUP BY birth_date) b USING(birth_date)
-ORDER BY users_birth_date, couriers_birth_date;
+
+SELECT order_id,
+       product_id,
+       price
+FROM   (SELECT order_id,
+               product_ids,
+               UNNEST(product_ids) AS product_id
+        FROM   orders) AS t
+LEFT JOIN products USING (product_id)
+ORDER BY order_id, product_id
+LIMIT 1000;
 ```
 ### Explanation:
-This query combines data from both the users and couriers tables by birth_date, counting the number of users and couriers per birth date.
+This query starts by using the UNNEST function to expand the product_ids array from the orders table into individual rows, allowing for each product to be associated with its respective order. The resulting table includes the order ID and the individual product IDs, which are then joined with the products table to retrieve the corresponding prices for each product. The final output displays the order ID, product ID, and price, sorted by order ID and product ID in ascending order. The LIMIT 1000 clause ensures that only the first 1000 rows are returned, providing a concise overview of the order and product data.
 
 ## Task 13
-Description:
-Combine the following two queries to create a set of unique birth dates from the users and couriers tables. Use a subquery to count the number of unique dates obtained after merging the sets. Name the column with the count dates_count.
+### Description:
+Using the previous query, calculate the total price for each order. Output the order ID and the total order price, naming the price column order_price. Sort the results by order ID in ascending order. Use a LIMIT clause to display only the first 1000 rows of the resulting table.
 
 ### SQL Query:
 ```sql
-SELECT COUNT(birth_date) AS dates_count
-FROM   (SELECT birth_date
-        FROM   users
-        WHERE  birth_date IS NOT NULL
-        UNION
-        SELECT birth_date
-        FROM   couriers
-        WHERE  birth_date IS NOT NULL) t;
+
+SELECT order_id,
+       SUM(price) AS order_price
+FROM   (SELECT order_id,
+               product_ids,
+               UNNEST(product_ids) AS product_id
+        FROM   orders) t1
+LEFT JOIN products USING (product_id)
+GROUP BY order_id
+ORDER BY order_id
+LIMIT 1000;
 ```
 ### Explanation:
-This query merges unique birth dates from both tables and counts them, allowing you to see how many unique birth dates exist across both datasets.
+This query builds on the previous one by calculating the total price for each order. It uses the SUM function to aggregate the prices of all products associated with each order ID. The results are grouped by order_id to ensure that the total price reflects the sum of all products in each order. The final output includes the order ID and the calculated total price (order_price), sorted by order ID in ascending order. The LIMIT 1000 clause ensures that only the first 1000 rows are returned, providing a clear view of order prices.
 
 ## Task 14
 ### Description:
-Select the first 100 users from the users table and perform a CROSS JOIN with all item names from the products table. Output two columns — user ID and item name. Sort the result by ascending user ID and item name.
+Combine the previous queries that calculate order prices and the average order size for users. From the combined dataset, calculate the following metrics for each user:
+
+-  Total number of orders (orders_count)
+-  Average number of products in an order (avg_order_size)
+-  Total value of all purchases (sum_order_value)
+-  Average order value (avg_order_value)
+-  Minimum order value (min_order_value)
+-  Maximum order value (max_order_value)
+Sort the final results by user ID in ascending order. Use a LIMIT clause to display only the first 1000 rows of the resulting table. Remember to only consider non-cancelled orders and round the average values to two decimal places.
 
 ### SQL Query:
 ```sql
+
 SELECT user_id,
-       name
-FROM   (SELECT user_id
-        FROM   users 
-        LIMIT 100) t1 
-CROSS JOIN (SELECT name
-            FROM   products) t2
-ORDER BY user_id, name;
+       COUNT(order_price) AS orders_count,
+       ROUND(AVG(order_size), 2) AS avg_order_size,
+       SUM(order_price) AS sum_order_value,
+       ROUND(AVG(order_price), 2) AS avg_order_value,
+       MIN(order_price) AS min_order_value,
+       MAX(order_price) AS max_order_value
+FROM   (SELECT user_id,
+               order_id,
+               ARRAY_LENGTH(product_ids, 1) AS order_size
+        FROM   (SELECT user_id,
+                       order_id
+                FROM   user_actions
+                WHERE  order_id NOT IN (SELECT order_id
+                                        FROM   user_actions
+                                        WHERE  action = 'cancel_order')) t1
+            LEFT JOIN orders USING (order_id)) t2
+    LEFT JOIN (SELECT order_id,
+                      SUM(price) AS order_price
+               FROM   (SELECT order_id,
+                              product_ids,
+                              UNNEST(product_ids) AS product_id
+                       FROM   orders
+                       WHERE  order_id NOT IN (SELECT order_id
+                                               FROM   user_actions
+                                               WHERE  action = 'cancel_order')) t3
+                   LEFT JOIN products USING (product_id)
+               GROUP BY order_id) t4 USING (order_id)
+GROUP BY user_id
+ORDER BY user_id
+LIMIT 1000;
 ```
 ### Explanation:
-This query retrieves the first 100 users and combines them with every item from the products table using a CROSS JOIN, resulting in a Cartesian product.
+This query combines various calculations for users' orders, filtering out cancelled orders. It begins by selecting user IDs and order IDs while determining the size of each order (number of products) from the user_actions and orders tables. The query then computes the total price of each order by joining with the products table. Finally, it aggregates the data by user ID to calculate the total number of orders, average order size, total order value, average order value, minimum, and maximum order values. The results are sorted by user ID, and the LIMIT 1000 clause ensures that only the first 1000 rows are displayed, providing a concise overview of the users' order statistics.
 
 ## Task 15
 ### Description:
-Join the user_actions and orders tables on the order_id key. Output user IDs and order IDs, as well as the list of items in each order. Sort the table by user ID in ascending order, then by order ID. Include a LIMIT to output only the first 1000 rows.
+Calculate the daily revenue of the service based on data from the orders, products, and user_actions tables. The revenue is defined as the total value of all products sold in orders. Name the column with the date date and the column with the revenue value revenue. Only include non-cancelled orders in the calculations. Sort the results by date in ascending order.
 
 ### SQL Query:
 ```sql
-SELECT user_id,
-       order_id,
-       product_ids
-FROM   user_actions
-LEFT JOIN orders USING(order_id)
-ORDER BY user_id, order_id 
-LIMIT 1000;
-```
-### Explanation:
-This query joins the user_actions and orders tables on order_id, providing details of users and their respective orders along with the products ordered.
 
-## Task 16
-### Description:
-Again, join the user_actions and orders tables, but only keep unique, non-canceled orders. The other conditions remain the same: output user IDs and order IDs, as well as the list of items in each order. Sort the table by user ID and order ID. Include a LIMIT to output only the first 1000 rows.
-
-### SQL Query:
-```sql
-Copy code
-SELECT user_id,
-       order_id,
-       product_ids
-FROM   (SELECT user_id,
-               order_id
-        FROM   user_actions
-        WHERE  order_id NOT IN (SELECT order_id
-                                FROM   user_actions
-                                WHERE  action = 'cancel_order')) t
-LEFT JOIN orders USING(order_id)
-ORDER BY user_id, order_id 
-LIMIT 1000;
-```
-### Explanation:
-This query filters out canceled orders and then retrieves valid user actions and their respective orders, ensuring only active orders are considered.
-
-## Task 17
-### Description:
-Using the query from the previous task, calculate the average number of items each user orders. Output user ID and average number of items in the order. Round the average value to two decimal places. Name the column avg_order_size. Sort the results by user ID and include a LIMIT to output only the first 1000 rows.
-
-### SQL Query:
-```sql
-SELECT user_id,
-       ROUND(AVG(ARRAY_LENGTH(product_ids, 1)), 2) AS avg_order_size
-FROM   (SELECT user_id,
-               order_id
-        FROM   user_actions
-        WHERE  order_id NOT IN (SELECT order_id
-                                FROM   user_actions
-                                WHERE  action = 'cancel_order')) t1
-LEFT JOIN orders USING(order_id)
-GROUP BY user_id
-ORDER BY user_id 
-LIMIT 1000;
-```
-### Explanation:
-This query calculates the average order size for each user, considering only non-canceled orders, helping to understand the typical purchasing behavior of users.
-
-## Task 18
-### Description:
-Using the orders, products, and user_actions tables, calculate the daily revenue for the service. Revenue is defined as the total cost of all sold items contained in orders. Name the date column date and the revenue column revenue. Only consider non-canceled orders in the calculations. Sort the results by date in ascending order.
-
-### SQL Query:
-```sql
-Copy code
 SELECT DATE(creation_time) AS date,
        SUM(price) AS revenue
 FROM   (SELECT order_id,
@@ -394,102 +352,141 @@ FROM   (SELECT order_id,
         WHERE  order_id NOT IN (SELECT order_id
                                 FROM   user_actions
                                 WHERE  action = 'cancel_order')) t1
-LEFT JOIN products USING(product_id)
+LEFT JOIN products USING (product_id)
 GROUP BY DATE(creation_time)
 ORDER BY date;
 ```
 ### Explanation:
-This query calculates daily revenue by summing the prices of items sold on each day while excluding canceled orders, providing insights into daily sales performance.
+This query calculates the daily revenue by first selecting the relevant data from the orders table, expanding the product_ids using the UNNEST function. It filters out any orders that have been cancelled, as identified by the user_actions table. The query then joins with the products table to retrieve the prices for each product. The results are grouped by date (derived from the creation_time column), and the total revenue is calculated using the SUM function. Finally, the results are sorted by date in ascending order, providing a clear view of daily revenue figures.
 
-## Task 19
+## Task 16
 ### Description:
-Using the courier_actions, orders, and products tables, identify the 10 most popular items delivered in September 2022. Popular items are those that appeared most frequently in orders, counting each item only once per order. Output the item names and how many times they were purchased. Name the count column times_purchased.
+Identify the 10 most popular products delivered in September 2022 from the courier_actions, orders, and products tables. The popularity of a product is determined by how frequently it appears in orders, counting each product only once per order, regardless of how many units were purchased. Output the product names and their purchase counts, naming the column with the count times_purchased.
 
 ### SQL Query:
 ```sql
+
 SELECT name,
-       COUNT(product_id) AS times_purchased
+       COUNT(DISTINCT order_id) AS times_purchased
 FROM   (SELECT order_id,
                product_id,
                name
         FROM   (SELECT DISTINCT order_id,
-                             UNNEST(product_ids) AS product_id
+                                UNNEST(product_ids) AS product_id
                 FROM   orders
-                LEFT JOIN courier_actions USING(order_id)
+                    LEFT JOIN courier_actions USING (order_id)
                 WHERE  action = 'deliver_order'
                    AND DATE_PART('month', time) = 9
                    AND DATE_PART('year', time) = 2022) t1
-            LEFT JOIN products USING(product_id)) t2
+            LEFT JOIN products USING (product_id)) t2
 GROUP BY name
-ORDER BY times_purchased DESC 
+ORDER BY times_purchased DESC
 LIMIT 10;
 ```
 ### Explanation:
-This query finds the most popular items delivered during a specified period by counting unique occurrences of each item across orders, helping to identify top-selling products.
+This query retrieves the 10 most popular products delivered in September 2022. It first creates a subquery that selects distinct order IDs and expands the product_ids using the UNNEST function, filtering for only those orders marked as delivered (action = 'deliver_order') within the specified month and year. The results are then joined with the products table to get the product names. Finally, the outer query counts the distinct order IDs for each product name to determine how many times each product was purchased (counting only one instance per order). The results are sorted in descending order by times_purchased, and the LIMIT 10 clause restricts the output to the top 10 products.
 
-## Task 20
+## Task 17
 ### Description:
-Take the query from one of the previous lessons and join it with the users table to include user details. Calculate the average cancel rate for each gender, rounding it to three decimal places. Name the column avg_cancel_rate. Also, calculate the cancel rate for users without gender information and label this as 'unknown'. Sort the results by gender in ascending order.
+Modify a previous query to include gender data from the users table for users found in the user_actions table, ensuring that all users from user_actions are retained in the result. Calculate the average cancel rate for each gender, rounding the result to three decimal places. Name the column with the average value avg_cancel_rate. For users with missing gender information, display 'unknown' as their gender using the COALESCE function. Finally, sort the results by the gender column in ascending order.
 
 ### SQL Query:
 ```sql
+
 SELECT COALESCE(sex, 'unknown') AS sex,
        ROUND(AVG(cancel_rate), 3) AS avg_cancel_rate
 FROM   (SELECT user_id,
                sex,
-               COUNT(DISTINCT order_id) FILTER (WHERE action = 'cancel_order')::decimal / COUNT(DISTINCT order_id) AS cancel_rate
+               COUNT(DISTINCT order_id) FILTER (WHERE action = 'cancel_order')::DECIMAL / COUNT(DISTINCT order_id) AS cancel_rate
         FROM   user_actions
-        LEFT JOIN users USING(user_id)
-        GROUP BY user_id, sex
-        ORDER BY cancel_rate DESC) t
+        LEFT JOIN users USING (user_id)
+        GROUP BY user_id, sex) t
 GROUP BY sex
 ORDER BY sex;
 ```
 ### Explanation:
-This query computes the average cancel rate based on the user’s gender, including those with missing gender data. It provides insights into cancellation trends by gender.
+This query starts by calculating the cancel rate for each user in the user_actions table. It performs a LEFT JOIN with the users table to include gender information. The inner query computes the cancel rate by counting the distinct order IDs where the action is 'cancel_order' and dividing that by the total distinct order IDs for each user. The outer query then averages the cancel rates by gender, using COALESCE to substitute 'unknown' for any users with missing gender data. The final result is sorted by gender in ascending order, providing a comprehensive overview of average cancel rates segmented by user gender.
 
-## Task 21
+## Task 18
 ### Description:
-Identify the 10 orders that took the longest to deliver using the orders and courier_actions tables. Output the order ID, user ID, and courier ID, as well as the user and courier ages. Age is measured in full years and is calculated relative to the last date in the user_actions table. Name the age columns user_age and courier_age. Sort the results by order ID in ascending order.
+Identify the IDs of the ten orders that took the longest to deliver using the orders and courier_actions tables. The resulting table should include the order_id.
 
 ### SQL Query:
 ```sql
+
+SELECT order_id
+FROM   (SELECT order_id,
+               time AS delivery_time
+        FROM   courier_actions
+        WHERE  action = 'deliver_order') AS t
+LEFT JOIN orders USING (order_id)
+ORDER BY delivery_time - creation_time DESC
+LIMIT 10;
+```
+### Explanation:
+This query retrieves the order IDs of the ten orders with the longest delivery times. It begins by selecting the order_id and the delivery time from the courier_actions table for orders marked as delivered (action = 'deliver_order'). This result is then joined with the orders table to access the creation_time of each order. The difference between the delivery_time and the creation_time is calculated to determine the total delivery duration. The results are sorted in descending order by this duration, and the LIMIT 10 clause ensures that only the ten orders with the longest delivery times are returned.
+
+## Task 19
+### Description:
+Replace the lists of product IDs in the orders table with lists of product names from the products table. Name the new column containing the product names product_names. Use a LIMIT clause to display only the first 1000 rows of the resulting table.
+
+### SQL Query:
+```sql
+
+SELECT order_id,
+       ARRAY_AGG(name) AS product_names
+FROM   (SELECT order_id,
+               UNNEST(product_ids) AS product_id
+        FROM   orders) t
+JOIN products USING (product_id)
+GROUP BY order_id
+LIMIT 1000;
+```
+### Explanation:
+This query transforms the product IDs in the orders table into their corresponding product names from the products table. It first selects the order_id and uses the UNNEST function to expand the product_ids array into individual rows. The result is then joined with the products table to retrieve the product names based on the product IDs. Finally, the ARRAY_AGG function is used to aggregate the product names back into an array for each order, and the results are limited to the first 1000 rows for a concise output.
+
+## Task 20
+### Description:
+Identify who ordered and delivered the largest orders based on the number of products. Output the order ID, user ID, and courier ID. Also, provide the ages of both the user and the courier in separate columns, measuring age in full years based on the latest date in the user_actions table. Name the columns for age user_age and courier_age. Sort the results by order ID in ascending order.
+
+### SQL Query:
+```sql
+
 WITH order_id_large_size AS (
     SELECT order_id
     FROM   orders
     WHERE  ARRAY_LENGTH(product_ids, 1) = (SELECT MAX(ARRAY_LENGTH(product_ids, 1))
-                                            FROM   orders)
+                                             FROM   orders)
 )
-SELECT DISTINCT order_id,
-                user_id,
+SELECT DISTINCT t1.order_id,
+                t1.user_id,
                 DATE_PART('year', AGE((SELECT MAX(time)
-                       FROM   user_actions), users.birth_date))::integer AS user_age,
-                courier_id,
+                                        FROM   user_actions), users.birth_date))::INTEGER AS user_age,
+                t2.courier_id,
                 DATE_PART('year', AGE((SELECT MAX(time)
-                                  FROM   user_actions), couriers.birth_date))::integer AS courier_age
+                                        FROM   user_actions), couriers.birth_date))::INTEGER AS courier_age
 FROM   (SELECT order_id,
                user_id
         FROM   user_actions
-        WHERE  order_id IN (SELECT *
-                            FROM   order_id_large_size)) t1
+        WHERE  order_id IN (SELECT * FROM order_id_large_size)) t1
 LEFT JOIN (SELECT order_id,
-                      courier_id
-               FROM   courier_actions
-               WHERE  order_id IN (SELECT *
-                                   FROM   order_id_large_size)) t2 USING(order_id)
-LEFT JOIN users USING(user_id)
-LEFT JOIN couriers USING(courier_id)
-ORDER BY order_id;
+                   courier_id
+            FROM   courier_actions
+            WHERE  order_id IN (SELECT * FROM order_id_large_size)) t2 USING (order_id)
+LEFT JOIN users USING (user_id)
+LEFT JOIN couriers USING (courier_id)
+ORDER BY t1.order_id;
 ```
 ### Explanation:
-This query identifies the largest orders by item count and provides details about the users and couriers associated with those orders, including their ages calculated based on the latest activity in the user_actions table.
+This query determines the users and couriers associated with the largest orders, defined by the highest number of products in an order. It creates a temporary result set (order_id_large_size) that contains the IDs of orders with the maximum number of products. The main query retrieves the relevant data, including the user_id and order_id, while calculating the ages of both users and couriers using the AGE function. The results are sorted by order_id, giving a structured view of who ordered and delivered the largest orders along with their ages.
 
-## Task 22
+## Task 21
 ### Description:
-Determine which pairs of items are most frequently purchased together based on the orders table. Exclude canceled orders. Output the pairs of item names and the count of how many times each pair was purchased together. Name the columns pair and count_pair. Sort the results by purchase frequency in descending order and by item pair names in ascending order.
+Identify the most frequently purchased pairs of products based on the orders table, excluding cancelled orders. Output two columns: one for the product pairs (sorted in ascending order by name) and another for the count of how often each pair appears in the orders. Name the columns pair and count_pair. Sort the results first by the frequency of the pairs in descending order, and then by the pair column in ascending order.
 
 ### SQL Query:
 ```sql
+
 WITH main_table AS (
     SELECT DISTINCT order_id,
                     product_id,
@@ -500,18 +497,19 @@ WITH main_table AS (
             WHERE  order_id NOT IN (SELECT order_id
                                     FROM   user_actions
                                     WHERE  action = 'cancel_order')) t
-        LEFT JOIN products USING(product_id)
+    LEFT JOIN products USING (product_id)
 )
 SELECT pair,
        COUNT(order_id) AS count_pair
 FROM   (SELECT DISTINCT a.order_id,
                         CASE WHEN a.name > b.name THEN STRING_TO_ARRAY(CONCAT(b.name, '+', a.name), '+')
                              ELSE STRING_TO_ARRAY(CONCAT(a.name, '+', b.name), '+') END AS pair
-        FROM   main_table a JOIN main_table b
-                ON a.order_id = b.order_id AND
-                   a.name != b.name) t
+        FROM   main_table a 
+        JOIN   main_table b
+        ON     a.order_id = b.order_id AND
+               a.name != b.name) t
 GROUP BY pair
 ORDER BY count_pair DESC, pair;
 ```
 ### Explanation:
-This query identifies and counts pairs of items that are frequently purchased together, which can provide insights into customer buying patterns and item associations.
+This query finds the most frequently purchased pairs of products by creating a common table expression (main_table) that includes distinct order_id, product_id, and name. It then performs a self-join to form pairs of product names within the same order. The results are grouped by the formed pairs, and the query counts how many times each pair appears in the orders, sorting the results first by the frequency of the pairs in descending order and then by the pair in ascending order.
