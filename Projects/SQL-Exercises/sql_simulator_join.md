@@ -2,29 +2,14 @@
 
 ## SQL Task Links
 
-| Task Number | Task Description                                            | Link                                     |
-|-------------|------------------------------------------------------------|------------------------------------------|
-| Task 1      | Join user_actions and users, select user IDs              | [View Task 1](#task-1)                  |
-| Task 2      | Count unique user IDs from the joined tables               | [View Task 2](#task-2)                  |
-| Task 3      | LEFT JOIN user_actions and users, select user IDs         | [View Task 3](#task-3)                  |
-| Task 4      | Count unique user IDs from the LEFT JOIN                   | [View Task 4](#task-4)                  |
-| Task 5      | Filter NULL values in RIGHT JOIN and sort results          | [View Task 5](#task-5)                  |
-| Task 6      | Use FULL JOIN to get unique dates and counts               | [View Task 6](#task-6)                  |
-| Task 7      | Count unique dates from users and couriers                 | [View Task 7](#task-7)                  |
-| Task 8      | Select first 100 users and CROSS JOIN with products        | [View Task 8](#task-8)                  |
-| Task 9      | Join user_actions and orders, display order details        | [View Task 9](#task-9)                  |
-| Task 10     | Calculate unique non-cancelled orders for users            | [View Task 10](#task-10)                |
-| Task 11     | Calculate average cancel_rate for each user gender         | [View Task 11](#task-11)                |
-| Task 12     | Calculate daily revenue, excluding cancelled orders         | [View Task 12](#task-12)                |
-| Task 13     | Identify top 10 popular products delivered in September 2022 | [View Task 13](#task-13)              |
-| Task 14     | Calculate order metrics for users                           | [View Task 14](#task-14)                |
-| Task 15     | Replace product IDs with names in orders                    | [View Task 15](#task-15)                |
-| Task 16     | Find largest orders and user/courier information            | [View Task 16](#task-16)                |
-| Task 17     | Identify frequently purchased product pairs                 | [View Task 17](#task-17)                |
-| Task 18     | Determine which product pairs are purchased together often  | [View Task 18](#task-18)                |
-| Task 19     | Identify who ordered and delivered the largest orders       | [View Task 19](#task-19)                |
-| Task 20     | Analyze pairs of products that are frequently purchased     | [View Task 20](#task-20)                |
-| Task 21     | Count product pairs purchased together frequently           | [View Task 21](#task-21)                |
+|               |                 |               |             |                |
+|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|
+| [Task 1](#task-1)     | [Task 2](#task-2)     | [Task 3](#task-3)     | [Task 4](#task-4)     | [Task 5](#task-5)     |
+| [Task 6](#task-6)     | [Task 7](#task-7)     | [Task 8](#task-8)     | [Task 9](#task-9)     | [Task 10](#task-10)   |
+| [Task 11](#task-11)   | [Task 12](#task-12)   | [Task 13](#task-13)   | [Task 14](#task-14)   | [Task 15](#task-15)   |
+| [Task 16](#task-16)   | [Task 17](#task-17)   | [Task 18](#task-18)   | [Task 19](#task-19)   |[Task 20](#task-20)   |
+| [Task 21](#task-21)   |                   
+
 
 
 
