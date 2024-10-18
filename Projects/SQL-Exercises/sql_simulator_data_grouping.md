@@ -2,27 +2,13 @@
 
 ## SQL Task Links
 
-| Task Number | Task Description                                                  | Link                                     |
-|-------------|------------------------------------------------------------------|------------------------------------------|
-| Task 1      | Count the number of couriers by gender                          | [View Task 1](#task-1)                  |
-| Task 2      | Count the number of created and canceled orders                  | [View Task 2](#task-2)                  |
-| Task 3      | Count how many orders were placed in each month                  | [View Task 3](#task-3)                  |
-| Task 4      | Count placed and canceled orders by month                        | [View Task 4](#task-4)                  |
-| Task 5      | Calculate the maximum month number of birth by gender            | [View Task 5](#task-5)                  |
-| Task 6      | Calculate the month number of birth of the youngest user         | [View Task 6](#task-6)                  |
-| Task 7      | Count the maximum age of users by gender                         | [View Task 7](#task-7)                  |
-| Task 8      | Count the number of users by age                                 | [View Task 8](#task-8)                  |
-| Task 9      | Count users by age and gender                                    | [View Task 9](#task-9)                  |
-| Task 10     | Count the number of products in each order                       | [View Task 10](#task-10)                 |
-| Task 11     | Count the number of created and canceled orders                  | [View Task 11](#task-11)                |
-| Task 12     | Identify the five users who made the most orders in August 2022 | [View Task 12](#task-12)                |
-| Task 13     | Find couriers who delivered only one order in September 2022    | [View Task 13](#task-13)                |
-| Task 14     | Select users whose last order was created before September 8, 2022 | [View Task 14](#task-14)              |
-| Task 15     | Group orders based on the number of items                        | [View Task 15](#task-15)                |
-| Task 16     | Group users by age into four categories                          | [View Task 16](#task-16)                |
-| Task 17     | Calculate the average order size for weekends and weekdays       | [View Task 17](#task-17)                |
-| Task 18     | Calculate total orders and cancellation rate for each user       | [View Task 18](#task-18)                |
-| Task 19     | Calculate order statistics for each day of the week             | [View Task 19](#task-19)                |
+|               |                 |               |             |                |
+|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|
+| [Task 1](#task-1)     | [Task 2](#task-2)     | [Task 3](#task-3)     | [Task 4](#task-4)     | [Task 5](#task-5)     |
+| [Task 6](#task-6)     | [Task 7](#task-7)     | [Task 8](#task-8)     | [Task 9](#task-9)     | [Task 10](#task-10)   |
+| [Task 11](#task-11)   | [Task 12](#task-12)   | [Task 13](#task-13)   | [Task 14](#task-14)   | [Task 15](#task-15)   |
+| [Task 16](#task-16)   | [Task 17](#task-17)   | [Task 18](#task-18)   | [Task 19](#task-19)   |
+
 
 
 
