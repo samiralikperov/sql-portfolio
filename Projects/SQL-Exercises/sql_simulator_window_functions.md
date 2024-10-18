@@ -14,10 +14,10 @@
 
 ## Task 1
 ### Description:
-Apply window functions to the products table to rank all products by price, from the most expensive to the least expensive. Add the following columns to the output:
-A column product_number with the sequential number of the product using the ROW_NUMBER function.
-A column product_rank with the rank of the product allowing for gaps using the RANK function.
-A column product_dense_rank with the rank of the product without gaps using the DENSE_RANK function.
+Apply window functions to the products table to rank all products by price, from the most expensive to the least expensive. Add the following columns to the output:  
+A column product_number with the sequential number of the product using the ROW_NUMBER function.  
+A column product_rank with the rank of the product allowing for gaps using the RANK function.  
+A column product_dense_rank with the rank of the product without gaps using the DENSE_RANK function.  
 Ensure to specify the ordering of records in the window functions, as failing to do so may lead to incorrect results. Partitioning within the window is not required. No sorting of records in the resulting table is necessary.
 
 ### SQL Query:
