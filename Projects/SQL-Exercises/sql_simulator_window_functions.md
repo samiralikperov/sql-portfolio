@@ -12,7 +12,7 @@
 
 
 
-## 1 Task
+## Task 1
 ### Description:
 Apply window functions to the products table to rank all products by price, from the most expensive to the least expensive. Add the following columns to the output:
 A column product_number with the sequential number of the product using the ROW_NUMBER function.
