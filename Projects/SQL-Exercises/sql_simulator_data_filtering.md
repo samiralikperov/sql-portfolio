@@ -2,26 +2,12 @@
 
 ## SQL Task Links
 
-| Task Number | Task Description                                     | Link                                     |
-|-------------|-----------------------------------------------------|------------------------------------------|
-| Task 1      | Select products where the price does not exceed 100 rubles | [View Task 1](#task-1)                  |
-| Task 2      | Select female users and output their IDs           | [View Task 2](#task-2)                  |
-| Task 3      | Select user actions related to order creation after September 6, 2022 | [View Task 3](#task-3)                  |
-| Task 4      | Apply a 20% discount to products and select those exceeding 100 rubles | [View Task 4](#task-4)                  |
-| Task 5      | Select products with names starting with "чай" or having five characters | [View Task 5](#task-5)                  |
-| Task 6      | Select products containing "чай" in their names    | [View Task 6](#task-6)                  |
-| Task 7      | Select products starting with "с" and single-word names | [View Task 7](#task-7)                  |
-| Task 8      | Select teas priced above 60 rubles and calculate the discounted price | [View Task 8](#task-8)                  |
-| Task 9      | Retrieve actions of users with specific IDs in August 2022 | [View Task 9](#task-9)                  |
-| Task 10     | Select couriers without specified birth dates      | [View Task 10](#task-10)                |
-| Task 11     | Select the youngest male users with their birth dates | [View Task 11](#task-11)                |
-| Task 12     | Retrieve delivery details of the last 10 orders for courier ID 100 | [View Task 12](#task-12)                |
-| Task 13     | Get order IDs created by users in August 2022     | [View Task 13](#task-13)                |
-| Task 14     | Select IDs of couriers born between 1990 and 1995  | [View Task 14](#task-14)                |
-| Task 15     | Retrieve information about order cancellations in August 2022 | [View Task 15](#task-15)                |
-| Task 16     | Calculate VAT and prices before tax for products   | [View Task 16](#task-16)                |
-
-
+|                 |                 |                 |                |                |
+|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|
+| [Task 1](#task-1)     | [Task 2](#task-2)     | [Task 3](#task-3)     | [Task 4](#task-4)     | [Task 5](#task-5)     |
+| [Task 6](#task-6)     | [Task 7](#task-7)     | [Task 8](#task-8)     | [Task 9](#task-9)     | [Task 10](#task-10)   |
+| [Task 11](#task-11)   | [Task 12](#task-12)   | [Task 13](#task-13)   | [Task 14](#task-14)   | [Task 15](#task-15)   |
+| [Task 16](#task-16)   |
 
 
 # SQL Tasks
