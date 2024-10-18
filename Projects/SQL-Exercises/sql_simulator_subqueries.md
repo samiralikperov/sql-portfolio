@@ -2,32 +2,13 @@
 
 ## SQL Task Links
 
-| Task Number | Task Description                                                 | Link                                   |
-|-------------|-----------------------------------------------------------------|----------------------------------------|
-| Task 1      | Calculate the average number of orders for all users           | [View Task 1](#task-1)                |
-| Task 2      | Repeat the previous task using the WITH operator                | [View Task 2](#task-2)                |
-| Task 3      | Output all products except the cheapest one                     | [View Task 3](#task-3)                |
-| Task 4      | Output products priced more than the average price + 20        | [View Task 4](#task-4)                |
-| Task 5      | Count unique clients who placed an order in the last week      | [View Task 5](#task-5)                |
-| Task 6      | Determine the age of the youngest male courier                 | [View Task 6](#task-6)                |
-| Task 7      | Select non-canceled orders by ID                                 | [View Task 7](#task-7)                |
-| Task 8      | Calculate the number of orders and average orders for users     | [View Task 8](#task-8)                |
-| Task 9      | Apply discounts to products based on price                      | [View Task 9](#task-9)                |
-| Task 10     | Count orders accepted but not created                            | [View Task 10](#task-10)              |
-| Task 11     | Count delivered orders that were accepted but not delivered     | [View Task 11](#task-11)              |
-| Task 12     | Count canceled and delivered orders                              | [View Task 12](#task-12)              |
-| Task 13     | Count undelivered orders and canceled orders                    | [View Task 13](#task-13)              |
-| Task 14     | Select male users older than all female users                   | [View Task 14](#task-14)              |
-| Task 15     | Output the last 100 delivered orders                             | [View Task 15](#task-15)              |
-| Task 16     | Output couriers who delivered 30 or more orders                 | [View Task 16](#task-16)              |
-| Task 17     | Calculate average order size for canceled orders                 | [View Task 17](#task-17)              |
-| Task 18     | Calculate the age of each user                                   | [View Task 18](#task-18)              |
-| Task 19     | Calculate delivery time for orders with more than 5 products    | [View Task 19](#task-19)              |
-| Task 20     | Count first orders made by users by date                        | [View Task 20](#task-20)              |
-| Task 21     | Select all columns from orders and unnest product IDs           | [View Task 21](#task-21)              |
-| Task 22     | Determine the 10 most popular products                          | [View Task 22](#task-22)              |
-| Task 23     | Select orders containing the 5 most expensive products          | [View Task 23](#task-23)              |
-
+|               |                 |               |             |                |
+|-----------------------|-----------------------|-----------------------|-----------------------|-----------------------|
+| [Task 1](#task-1)     | [Task 2](#task-2)     | [Task 3](#task-3)     | [Task 4](#task-4)     | [Task 5](#task-5)     |
+| [Task 6](#task-6)     | [Task 7](#task-7)     | [Task 8](#task-8)     | [Task 9](#task-9)     | [Task 10](#task-10)   |
+| [Task 11](#task-11)   | [Task 12](#task-12)   | [Task 13](#task-13)   | [Task 14](#task-14)   | [Task 15](#task-15)   |
+| [Task 16](#task-16)   | [Task 17](#task-17)   | [Task 18](#task-18)   | [Task 19](#task-19)   |[Task 20](#task-20)   |
+| [Task 21](#task-21)   | [Task 22](#task-22)   | [Task 23](#task-23)   |                    
 
 ## Task 1
 
