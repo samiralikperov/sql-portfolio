@@ -208,11 +208,11 @@ FROM   (SELECT time::date AS date,
 ORDER BY date;
 ```
 ### Explanation:
-The outer query retrieves the date, calculates the share of users who made a single order, and the share of users who made multiple orders.
-The first subquery (aliased as t1) counts the total number of distinct paying users for each date, filtering out canceled orders.
-The second subquery (aliased as t3) counts distinct user_id values who made only one order on each date, also filtering out canceled orders. This is achieved by grouping by date and user_id, and using the HAVING clause to restrict the count of distinct orders to one.
-The shares of single-order and several-order users are calculated as percentages of the total paying users, with the ROUND function ensuring the results are rounded to two decimal places.
-The final results are sorted by date in ascending order, allowing for a clear view of user behavior over time.
+The outer query retrieves the date, calculates the share of users who made a single order, and the share of users who made multiple orders.  
+The first subquery (aliased as t1) counts the total number of distinct paying users for each date, filtering out canceled orders.  
+The second subquery (aliased as t3) counts distinct user_id values who made only one order on each date, also filtering out canceled orders. This is achieved by grouping by date and user_id, and using the HAVING clause to restrict the count of distinct orders to one.  
+The shares of single-order and several-order users are calculated as percentages of the total paying users, with the ROUND function ensuring the results are rounded to two decimal places.  
+The final results are sorted by date in ascending order, allowing for a clear view of user behavior over time.  
 
 
 
