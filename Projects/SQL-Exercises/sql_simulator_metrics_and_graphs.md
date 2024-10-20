@@ -163,12 +163,12 @@ FROM   (SELECT start_date AS date,
 ```
 
 ### Explanation:  
-The outer query retrieves the date, number of paying users, and number of active couriers, along with their respective shares.
-The first subquery calculates the total number of new users and new couriers for each day, while maintaining cumulative totals using the SUM(...) OVER (ORDER BY start_date) function.
-The second subquery (aliased as t6) counts distinct courier_id values as active couriers for each day, filtering out orders that were canceled.
-The third subquery (aliased as t7) counts distinct user_id values as paying users for each day, also excluding canceled orders.
-The shares of paying users and active couriers are calculated as percentages of the total users and total couriers, respectively, and are rounded to two decimal places using the ROUND function.
-Finally, the results are presented for each date, allowing for an analysis of user engagement over time.
+The outer query retrieves the date, number of paying users, and number of active couriers, along with their respective shares.  
+The first subquery calculates the total number of new users and new couriers for each day, while maintaining cumulative totals using the SUM(...) OVER (ORDER BY start_date) function.  
+The second subquery (aliased as t6) counts distinct courier_id values as active couriers for each day, filtering out orders that were canceled.  
+The third subquery (aliased as t7) counts distinct user_id values as paying users for each day, also excluding canceled orders.  
+The shares of paying users and active couriers are calculated as percentages of the total users and total couriers, respectively, and are rounded to two decimal places using the ROUND function.  
+Finally, the results are presented for each date, allowing for an analysis of user engagement over time.  
 
 
 
