@@ -277,11 +277,11 @@ ORDER BY date;
 ```
 
 ### Explanation:
-The outer query retrieves the date, total orders, first orders, and orders made by new users, along with their respective shares.
-The first subquery (aliased as t5) counts the total distinct orders for each date, filtering out canceled orders and only including delivered orders.
-The second subquery (aliased as t7) identifies the first orders made by users, grouping by user ID to find the earliest order date for each user.
-The third subquery (aliased as t6) counts the number of orders made by new users on their first day, using a left join to associate the start date with the corresponding orders.
-The shares of first orders and new user orders are calculated as percentages of the total number of orders, rounded to two decimal places using the ROUND function.
+The outer query retrieves the date, total orders, first orders, and orders made by new users, along with their respective shares.  
+The first subquery (aliased as t5) counts the total distinct orders for each date, filtering out canceled orders and only including delivered orders.  
+The second subquery (aliased as t7) identifies the first orders made by users, grouping by user ID to find the earliest order date for each user.  
+The third subquery (aliased as t6) counts the number of orders made by new users on their first day, using a left join to associate the start date with the corresponding orders.  
+The shares of first orders and new user orders are calculated as percentages of the total number of orders, rounded to two decimal places using the ROUND function.  
 Finally, the results are sorted by date in ascending order, providing a clear chronological view of order metrics.
 
 
@@ -321,12 +321,12 @@ JOIN   (SELECT time::date AS date,
 ORDER BY date;
 ```
 ### Explanation
-The outer query retrieves the date, calculates the number of paying users per active courier, and the number of orders per active courier.
-The first subquery (aliased as t1) counts the distinct active couriers for each date, excluding any orders that have been canceled.
-The second subquery (aliased as t2) counts the total distinct orders for each date, similarly filtering out canceled orders.
-The third subquery (aliased as t3) counts the distinct paying users for each date, also filtering out canceled orders.
-The metrics for paying users per courier and orders per courier are calculated by dividing the respective counts by the number of couriers, rounded to two decimal places using the ROUND function.
-Finally, the results are sorted by date in ascending order, providing a clear view of these metrics over time.
+The outer query retrieves the date, calculates the number of paying users per active courier, and the number of orders per active courier.  
+The first subquery (aliased as t1) counts the distinct active couriers for each date, excluding any orders that have been canceled.  
+The second subquery (aliased as t2) counts the total distinct orders for each date, similarly filtering out canceled orders.  
+The third subquery (aliased as t3) counts the distinct paying users for each date, also filtering out canceled orders.  
+The metrics for paying users per courier and orders per courier are calculated by dividing the respective counts by the number of couriers, rounded to two decimal places using the ROUND function.  
+Finally, the results are sorted by date in ascending order, providing a clear view of these metrics over time.  
 
 
 
@@ -351,11 +351,11 @@ GROUP BY date
 ORDER BY date;
 ```
 ### Explanation
-The outer query calculates the average delivery time in minutes for each day by aggregating the delivery times.
-The inner subquery (aliased as t) calculates the delivery time for each order_id by finding the maximum and minimum timestamps in the courier_actions table. The difference between these two timestamps is converted from seconds to minutes using the EXTRACT(epoch FROM ...) function divided by 60.
-The results from the inner query include the order ID, the corresponding date, and the calculated delivery time.
-The outer query computes the average delivery time across all orders for each date and rounds the result to the nearest integer using the ROUND function.
-Finally, the results are sorted by date in ascending order, providing a clear view of delivery times over time.
+The outer query calculates the average delivery time in minutes for each day by aggregating the delivery times.  
+The inner subquery (aliased as t) calculates the delivery time for each order_id by finding the maximum and minimum timestamps in the courier_actions table. The difference between these two timestamps is converted from seconds to minutes using the EXTRACT(epoch FROM ...) function divided by 60.  
+The results from the inner query include the order ID, the corresponding date, and the calculated delivery time.  
+The outer query computes the average delivery time across all orders for each date and rounds the result to the nearest integer using the ROUND function.  
+Finally, the results are sorted by date in ascending order, providing a clear view of delivery times over time.  
 
 
 
@@ -391,11 +391,11 @@ FROM   (SELECT DATE_PART('hour', creation_time)::int AS hour,
 ORDER BY hour;
 ```
 ### Explanation:
-The outer query retrieves the hour of the day along with the counts of successful and canceled orders, as well as the cancel rate.
-The first subquery (aliased as t1) counts the total successful orders for each hour, filtering out any orders that have been canceled based on the user_actions table.
-The second subquery (aliased as t2) counts the canceled orders for each hour, specifically those that match the canceled actions recorded in the user_actions table.
-The cancel rate is calculated by dividing the number of canceled orders by the total number of orders (successful + canceled) and rounding the result to three decimal places using the ROUND function.
-The results are then combined using a LEFT JOIN on the hour and sorted by hour in ascending order, providing a clear view of order metrics throughout the day.
+The outer query retrieves the hour of the day along with the counts of successful and canceled orders, as well as the cancel rate.  
+The first subquery (aliased as t1) counts the total successful orders for each hour, filtering out any orders that have been canceled based on the user_actions table.  
+The second subquery (aliased as t2) counts the canceled orders for each hour, specifically those that match the canceled actions recorded in the user_actions table.  
+The cancel rate is calculated by dividing the number of canceled orders by the total number of orders (successful + canceled) and rounding the result to three decimal places using the ROUND function.  
+The results are then combined using a LEFT JOIN on the hour and sorted by hour in ascending order, providing a clear view of order metrics throughout the day.  
 
 
 
