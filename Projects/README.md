@@ -14,6 +14,6 @@ Feel free to explore the projects and see how SQL can be utilized in different s
 | 1 -  SQL-Exercises  | Subqueries             | [View](./SQL-Exercises/sql_simulator_subqueries.md)          |
 |                     | JOIN                   | [View](./SQL-Exercises/sql_simulator_join.md)                |
 |                     | Window functions       | [View](./SQL-Exercises/sql_simulator_window_functions.md)    |
-|                     | Metrics and Graphs     | [View](./SQL-Exercises/sql_simulator_marketing_metrics.md)   |
+|                     | Metrics and Graphs     | [View](./SQL-Exercises/sql_simulator_metrics_and_graphs.md)  |
 |                     | Product Economics      | [View](./SQL-Exercises/sql_simulator_product_economics.md)   |
 |                     | Marketing Metrics      | [View](./SQL-Exercises/sql_simulator_marketing_metrics.md)   |
