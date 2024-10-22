@@ -12,7 +12,8 @@ This project, authored by [Samir Alikperov](https://www.linkedin.com/in/samirali
 
 This [notebook](MA_Restaurant_Order_Analysis.ipynb) showcases a complete workflow, from data extraction to visualization, providing a practical example of using data analytics to drive decision-making in the restaurant industry.
 
-[Preview](https://onedrive.live.com/?cid=7835D590A0589040&id=7835D590A0589040%21s8d402ea2fbd84b518af6d0446f54c02c&parId=7835D590A0589040%21se54ba5d3226c43f8b86be8c61ef8f1f8&o=OneUp)
 
 
-<iframe src="https://1drv.ms/v/c/7835d590a0589040/IQSiLkCN2PtRS4r20ERvVMAsAcejOOPdifacW0NRa4Jqc88" width="640" height="360" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
+https://github.com/user-attachments/assets/906d55c4-6f1c-4533-9b9b-0d5d0afa6dc1
+
