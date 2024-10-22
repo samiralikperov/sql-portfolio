@@ -11,3 +11,11 @@ This project, authored by [Samir Alikperov](https://www.linkedin.com/in/samirali
 - Utilizing interactive tools like dtale to explore the data in a user-friendly way.
 
 This [notebook](MA_Restaurant_Order_Analysis.ipynb) showcases a complete workflow, from data extraction to visualization, providing a practical example of using data analytics to drive decision-making in the restaurant industry.
+
+[Preview](https://onedrive.live.com/?cid=7835D590A0589040&id=7835D590A0589040%21s8d402ea2fbd84b518af6d0446f54c02c&parId=7835D590A0589040%21se54ba5d3226c43f8b86be8c61ef8f1f8&o=OneUp)
+
+
+<video width="640" height="360" controls>
+  <source src="https://onedrive.live.com/?cid=7835D590A0589040&id=7835D590A0589040%21s8d402ea2fbd84b518af6d0446f54c02c&parId=7835D590A0589040%21se54ba5d3226c43f8b86be8c61ef8f1f8&o=OneUp" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
