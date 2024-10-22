@@ -15,5 +15,9 @@ This [notebook](MA_Restaurant_Order_Analysis.ipynb) showcases a complete workflo
 
 
 
-https://github.com/user-attachments/assets/906d55c4-6f1c-4533-9b9b-0d5d0afa6dc1
+
+
+
+
+https://github.com/user-attachments/assets/19ff2331-faf5-4b53-a3fd-ce0a3497a590
 
